@@ -1,0 +1,1 @@
+<view><task-item vue-id="791bfbf2-1" type="{{type}}" bind:__l="__l"></task-item></view>

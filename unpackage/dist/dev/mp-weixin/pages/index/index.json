@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "uni-ui基础项目",
+  "usingComponents": {
+    "u-dropdown": "/uview-ui/components/u-dropdown/u-dropdown",
+    "u-dropdown-item": "/uview-ui/components/u-dropdown-item/u-dropdown-item",
+    "u-field": "/uview-ui/components/u-field/u-field",
+    "u-button": "/uview-ui/components/u-button/u-button",
+    "task-item": "/components/task-item"
+  }
+}

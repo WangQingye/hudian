@@ -12,6 +12,9 @@
 		},
 		onLoad(option) {
 			this.type = option.type
+			uni.setNavigationBarTitle({
+			    title: this.type === 'publish' ? '我的发布' : '我的领取'
+			});
 		},
 		data() {
 			return {

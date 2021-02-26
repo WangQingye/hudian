@@ -23,7 +23,7 @@
 	}, {
 		"path": "pages/task-list/task-list",
 		"style": {
-			"navigationBarTitleText": "我发布的",
+			"navigationBarTitleText": "",
 			"enablePullDownRefresh": false
 		}
 

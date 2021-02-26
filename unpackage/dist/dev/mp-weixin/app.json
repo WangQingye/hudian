@@ -1,0 +1,42 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/task-desc/task-desc",
+    "pages/my-info/my-info",
+    "pages/task-list/task-list",
+    "pages/finish-task/finish-task"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#007AFF",
+    "backgroundColor": "#FFFFFF"
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "height": "50px",
+    "fontSize": "10px",
+    "iconWidth": "24px",
+    "spacing": "3px",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/jiarufangjian-01.png",
+        "selectedIconPath": "static/jiarufangjian-01.png",
+        "text": "广场"
+      },
+      {
+        "pagePath": "pages/my-info/my-info",
+        "iconPath": "static/haoyou.png",
+        "selectedIconPath": "static/haoyou.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "usingComponents": {},
+  "sitemapLocation": "sitemap91.json"
+}
