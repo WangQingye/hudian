@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "task-list-unicloud-db-default": "/pages/task-list/task-list-unicloud-db-default",
+    "unicloud-db": "/node-modules/@dcloudio/uni-cli-shared/components/unicloud-db",
+    "task-item": "/components/task-item"
+  }
+}

@@ -4,7 +4,11 @@
     "pages/task-desc/task-desc",
     "pages/my-info/my-info",
     "pages/task-list/task-list",
-    "pages/finish-task/finish-task"
+    "pages/finish-task/finish-task",
+    "pages/publish/publish",
+    "pages/get-score/get-score",
+    "pages/help/help",
+    "pages/login/login"
   ],
   "subPackages": [],
   "window": {
@@ -38,5 +42,5 @@
     ]
   },
   "usingComponents": {},
-  "sitemapLocation": "sitemap91.json"
+  "sitemapLocation": "sitemap48.json"
 }

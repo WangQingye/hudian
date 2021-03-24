@@ -63,7 +63,7 @@
   padding: 8rpx 40rpx;
   border-radius: 100rpx;
   margin-top: 30rpx;
-  margin-right: 26rpx;
+  margin-right: 28rpx;
 }
 .slot-content .item-box .active.data-v-57280228 {
   color: #FFFFFF;

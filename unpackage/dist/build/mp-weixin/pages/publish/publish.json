@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "发布任务",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "u-form": "/uview-ui/components/u-form/u-form",
+    "u-form-item": "/uview-ui/components/u-form-item/u-form-item",
+    "u-input": "/uview-ui/components/u-input/u-input",
+    "u-select": "/uview-ui/components/u-select/u-select",
+    "uni-file-picker": "/uni_modules/uni-file-picker/components/uni-file-picker/uni-file-picker",
+    "u-button": "/uview-ui/components/u-button/u-button"
+  }
+}

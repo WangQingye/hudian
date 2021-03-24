@@ -1,0 +1,42 @@
+{
+	"bsonType": "object",
+	"required": [],
+	"permission": {
+		"read": true,
+		"create": true,
+		"update": true,
+		"delete": true
+	},
+	"properties": {
+		"_id": {
+			"description": "ID，系统自动生成"
+		},
+		"taskId": {
+			"description": "任务ID"
+		},
+		"receiveUserId": {
+			"description": "领取人ID"
+		},
+		"receiveUserName": {
+			"description": "领取人昵称"
+		},
+		"receiveTime": {
+			"description": "领取时间"
+		},
+		"limitTime": {
+			"description": "限制时间"
+		},
+		"pastTime": {
+			"description": "过期时间"
+		},
+		"status": {
+			"description": "任务状态：已过期/进行中/已完成/申述中/申述通过/申述失败"
+		},
+		"desc": {
+			"description": "提交备注"
+		},
+		"submitImg": {
+			"description": "提交图片"
+		}
+	}
+}

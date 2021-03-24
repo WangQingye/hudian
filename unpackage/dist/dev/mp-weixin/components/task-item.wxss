@@ -39,4 +39,7 @@
   font-size: 28rpx;
   color: #aaa;
 }
+.data-v-952ddba0 .u-collapse-item {
+  margin-bottom: -25rpx !important;
+}
 

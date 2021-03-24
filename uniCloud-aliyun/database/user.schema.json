@@ -1,0 +1,37 @@
+// 文档教程: https://uniapp.dcloud.net.cn/uniCloud/schema
+{
+	"bsonType": "object",
+	"required": [],
+	"permission": {
+		"read": true,
+		"create": true,
+		"update": true,
+		"delete": true
+	},
+	"properties": {
+		"_id": {
+			"description": "ID，系统自动生成"
+		},
+		"openId": {
+			"description": "微信openid"
+		},
+		"nickName": {
+			"description": "用户名称"
+		},
+		"avatarUrl": {
+			"description": "头像"
+		},
+		"score": {
+			"description": "积分"
+		},
+		"credit": {
+			"description": "信用分"
+		},
+		"status": {
+			"description": "用户状态：激活/冻结"
+		},
+		"finishTaskNum": {
+			"description": "完成任务的数量，用于计算信用分加减"
+		}
+	}
+}

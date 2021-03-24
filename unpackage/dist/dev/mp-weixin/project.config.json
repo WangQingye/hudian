@@ -4,30 +4,56 @@
     "ignore": []
   },
   "setting": {
-    "urlCheck": true,
-    "minified": true,
+    "urlCheck": false,
+    "es6": true,
+    "enhance": false,
     "postcss": true,
-    "es6": true
+    "preloadBackgroundData": false,
+    "minified": true,
+    "newFeature": false,
+    "coverView": true,
+    "nodeModules": false,
+    "autoAudits": false,
+    "showShadowRootInWxmlPanel": true,
+    "scopeDataCheck": false,
+    "uglifyFileName": false,
+    "checkInvalidKey": true,
+    "checkSiteMap": true,
+    "uploadWithSourceMap": true,
+    "compileHotReLoad": true,
+    "useMultiFrameRuntime": true,
+    "useApiHook": true,
+    "useApiHostProcess": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "enableEngineNative": false,
+    "bundle": false,
+    "useIsolateContext": true,
+    "useCompilerModule": true,
+    "userConfirmedUseCompilerModuleSwitch": false,
+    "userConfirmedBundleSwitch": false,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true
   },
   "compileType": "miniprogram",
   "libVersion": "",
-  "appid": "wx0c2ccdb2e7e90e35",
-  "projectname": "互点",
+  "appid": "wxa5c8a9951e47b6ba",
+  "projectname": "互助互点",
   "condition": {
     "search": {
-      "current": -1,
       "list": []
     },
     "conversation": {
-      "current": -1,
       "list": []
     },
     "game": {
-      "current": -1,
       "list": []
     },
     "miniprogram": {
-      "current": -1,
       "list": []
     }
   }

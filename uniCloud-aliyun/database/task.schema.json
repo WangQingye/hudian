@@ -1,0 +1,53 @@
+// 文档教程: https://uniapp.dcloud.net.cn/uniCloud/schema
+{
+	"bsonType": "object",
+	"required": [],
+	"permission": {
+		"read": true,
+		"create": true,
+		"update": true,
+		"delete": true
+	},
+	"properties": {
+		"_id": {
+			"description": "ID，系统自动生成"
+		},
+		"type": {
+			"description": "任务类型"
+		},
+		"link": {
+			"description": "任务链接"
+		},
+		"img": {
+			"description": "任务图片"
+		},
+		"desc": {
+			"description": "任务描述"
+		},
+		"score": {
+			"description": "积分奖励"
+		},
+		"totalNum": {
+			"description": "任务总数量"
+		},
+		"restNum": {
+			"description": "任务剩余数量"
+		},
+		"limitTime": {
+			"description": "任务完成时限"
+		},
+		"createTime": {
+			"description": "生成时间"
+		},
+		"creator": {
+			"description": "创建者"
+		},
+		"avatar": {
+			"description": "用户头像"
+		},
+		"receiveStatus": {
+			"description": "任务领取情况",
+			"bsonType": "array"
+		}
+	}
+}

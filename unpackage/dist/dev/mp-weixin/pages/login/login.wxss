@@ -1,0 +1,22 @@
+
+.img.data-v-b237504c {
+	display: block;
+	margin: 0 auto;
+	margin-top: 200rpx;
+	width: 200rpx;
+	height: 200rpx;
+	border-radius: 20rpx;
+}
+.title.data-v-b237504c {
+	text-align: center;
+	font-size: 38rpx;
+	font-weight: bold;
+	margin: 30rpx 0;
+}
+.text.data-v-b237504c {
+	text-align: center;
+	font-size: 30rpx;
+	color: #aaa;
+	margin: 30rpx 0;
+}
+

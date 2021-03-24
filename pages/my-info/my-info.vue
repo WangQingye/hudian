@@ -1,17 +1,21 @@
 <template>
-	<view class="my-info">
+	<view class="my-info" v-if="userInfo.openId">
 		<view class="info">
-			<u-avatar class="avatar" size="120" src="../../static/jiarufangjian-01.png"></u-avatar>
+			<u-avatar class="avatar" size="140" :src="userInfo.avatarUrl"></u-avatar>
 			<view class="name-info">
-				<view class="name">云之澜</view>
-				<view class="score">积分：11</view>
+				<view class="name">{{userInfo.nickName}}</view>
+				<view class="score">积分：{{userInfo.score}}</view>
+				<view class="score">信用分：{{userInfo.credit}}</view>
 			</view>
 		</view>
 		<u-gap height="15" bg-color="#eee"></u-gap>
-			<u-cell-group>
-				<u-cell-item icon="order" title="我发布的" @click="goList('publish')"></u-cell-item>
-				<u-cell-item icon="red-packet" title="我领取的" @click="goList('receive')"></u-cell-item>
-			</u-cell-group>
+		<u-cell-group>
+			<u-cell-item icon="email" title="发布任务" @click="goPublish()"></u-cell-item>
+			<u-cell-item icon="coupon-fill" title="我发布的" @click="goList('publish')"></u-cell-item>
+			<u-cell-item icon="coupon" title="我领取的" @click="goList('receive')"></u-cell-item>
+			<u-cell-item icon="gift-fill" title="获取积分" @click="goShare"></u-cell-item>
+			<u-cell-item icon="question-circle" title="使用帮助" @click="goHelp"></u-cell-item>
+		</u-cell-group>
 	</view>
 </template>
 
@@ -19,13 +23,49 @@
 	export default {
 		data() {
 			return {
-				
+				userInfo: {}
+			}
+		},
+		onShow() {
+			if (!this.$util.store.userInfo.nickName) {	
+				uni.getUserInfo({
+					success: (res) => {
+						this.$util.store.userInfo.nickName = res.userInfo.nickName
+						this.$util.store.userInfo.avatarUrl = res.userInfo.avatarUrl
+						this.getUserInfo()
+					},
+					fail: (res) => {
+						uni.navigateTo({
+							url: `/pages/login/login`
+						});
+					}
+				})
+			} else {
+				this.userInfo = this.$util.store.userInfo
 			}
 		},
 		methods: {
+			async getUserInfo() {
+				this.userInfo = await this.$util.getUserInfo();				console.log(this.userInfo)
+			},
+			goPublish(type) {
+				uni.navigateTo({
+					url: `/pages/publish/publish`
+				})
+			},
 			goList(type) {
 				uni.navigateTo({
 					url: `/pages/task-list/task-list?type=${type}`
+				})
+			},
+			goShare() {
+				uni.navigateTo({
+					url: `/pages/get-score/get-score`
+				})
+			},
+			goHelp() {
+				uni.navigateTo({
+					url: `/pages/help/help`
 				})
 			}
 		}
@@ -33,21 +73,24 @@
 </script>
 
 <style lang="scss" scoped>
-.my-info {	
-	.info {
-		display: flex;
-		padding: 100rpx;
-		.avatar {
-			margin-right: 50rpx;
-			border: 1px solid #bbb;
-			padding: 10rpx;
-		}
-		.name-info {
-			.name {
-				font-size: 40rpx;
-				margin-bottom: 20rpx;
+	.my-info {
+		.info {
+			display: flex;
+			padding: 100rpx;
+
+			.avatar {
+				margin-right: 50rpx;
+				// border: 1px solid #bbb;
+				padding: 10rpx;
+				border-radius: 50%;
+			}
+
+			.name-info {
+				.name {
+					font-size: 40rpx;
+					margin-bottom: 20rpx;
+				}
 			}
 		}
 	}
-}
 </style>

@@ -20,7 +20,11 @@
 				</u-dropdown-item>
 			</u-dropdown>
 		</view>
-		<task-item v-for="i in 7"></task-item>
+		<unicloud-db ref="udb" v-slot:default="{data, loading, error, options}" collection="task" :where="typeSearch" :orderby="sort">
+		  <view>
+			<task-item v-for="i in data" :type="'before-receive'" :data="i"></task-item>
+		  </view>
+		</unicloud-db>
 	</view>
 </template>
 
@@ -33,18 +37,14 @@
 		data() {
 			return {
 				order: 1,
-				type: 1,
+				typeArr: [],
 				orderOptions: [{
-						label: '默认排序',
+						label: '最新发布',
 						value: 1,
 					},
 					{
 						label: '积分排序',
 						value: 2,
-					},
-					{
-						label: '发布时间',
-						value: 3,
 					}
 				],
 				typeOptions: [{
@@ -75,20 +75,59 @@
 				originalType: ''
 			};
 		},
+		mounted() {
+			uni.login({
+				success: (res) => {
+					this.$util.http('getOpenId',res).then(data => {
+						console.log(data)
+						this.$util.store.userInfo.openId = data.result.openid
+					})
+				}
+			})
+		},
 		methods: {
 			tagClick(index) {
 				this.typeOptions[index].active = !this.typeOptions[index].active;
 			},
 			changeTypes() {
-				let typeArr = []
+				this.typeArr = []
 				this.typeOptions.forEach(item => {
 					if (item.active) {
-						typeArr.push(item.label)
+						this.typeArr.push(item.label)
 					}
 				})
-				typeArr.push(this.originalType)
-				console.log(typeArr)
+				if (this.originalType) this.typeArr.push(this.originalType)
 				this.$refs.uDropdown.close();
+				this.$nextTick(() => {	
+					this.$refs.udb.loadData({clear: true})
+				})
+			}
+		},
+		computed: {
+			typeSearch() {
+				console.log(this.typeArr)
+				if (this.typeArr.indexOf('全部') !== -1 || this.typeArr.length === 0) {
+					return "type != ''"
+				} else {
+					let str = ''
+					this.typeArr.forEach(type => {
+						str += `type == '${type}'||`
+					})
+					str = str.slice(0, str.length - 2)
+					return str
+				}
+			},
+			sort() {
+				switch (this.order){
+					case 1:
+						return 'createTime desc'
+						break;
+					case 2:
+						return 'score desc'
+						break;
+					default:
+						break;
+				}
 			}
 		}
 	}
@@ -130,7 +169,7 @@
 				padding: 8rpx 40rpx;
 				border-radius: 100rpx;
 				margin-top: 30rpx;
-				margin-right: 26rpx;
+				margin-right: 28rpx;
 			}
 
 			.active {

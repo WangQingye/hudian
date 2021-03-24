@@ -1,40 +1,43 @@
 <template>
 	<view>
-		<u-card :title="type === 'publish' ? `${title}(1积分)` : title" :sub-title="subTitle" :thumb="thumb" @head-click="goDesc"
+		<u-card :title="`${data.type}任务`" :sub-title="moment(data.createTime).format('YYYY-MM-DD')" :thumb="data.avatar" @click="goDesc"
 		 border-radius="0" :body-style="{display:'none'}">
-			<view style="display: flex;justify-content: space-between;" slot="foot">
-				<u-icon v-if="type !== 'publish'" name="gift" size="34" color="" label="1积分"></u-icon>
+			<view slot="foot"><!-- 
 				<u-cell-item v-if="type === 'publish'" icon="setting-fill" title="剩余3次-发布5次" :arrow="false">
-					<u-collapse slot="right-icon">
-						<u-collapse-item title="完成情况">
-							<view style="margin-bottom: 25rpx; text-decoration: underline; color: #2979ff;">
-								<text @click="goFinish">2020-11-05 11:23 用户A完成</text>
-							</view>
-							<view style="margin-bottom: 25rpx; text-decoration: underline; color: #2979ff;">
-								<text @click="goFinish">2020-11-05 11:23 用户B完成</text>
-							</view>
-						</u-collapse-item>
-					</u-collapse>
-				</u-cell-item>
-				<text v-else-if="type === 'receive'"><text style="color:red">未完成</text></text>
-				<text v-else>剩余3次</text>
+				</u-cell-item> -->
+				<u-icon v-if="type === 'publish'" name="gift" size="34" color="" :label="`${data.score}积分`"></u-icon>
+				<u-icon v-if="type === 'publish'"  style="float: right;" name="setting-fill" size="34" color="" :label="`剩余次数${data.restNum}/${data.totalNum}`"></u-icon>			
+				<u-collapse slot="right-icon" v-if="type === 'publish'">
+					<u-collapse-item title="完成情况">
+						<view v-for="i in 3" :key="i" style="margin-bottom: 25rpx; text-decoration: underline; color: #2979ff;">
+							<text @click.stop="goFinish">2020-11-05 11:23 用户A完成</text>
+						</view>
+					</u-collapse-item>
+				</u-collapse>
+				<u-icon v-if="type !== 'publish'" name="gift" size="34" color="" :label="`${data.score}积分`"></u-icon>
+				<text v-if="type !== 'publish' && type !== 'receive'" style="float: right;">{{`剩余${data.restNum}次`}}</text>
+				<text v-if="type === 'receive'" style="float: right;"><text style="color:red">未完成</text></text>
 			</view>
 		</u-card>
 	</view>
 </template>
 
 <script>
+	import moment from 'moment'
 	export default {
-		props: ['type'],
+		props: ['type', 'data'],
 		data() {
 			return {
-				title: '拼多多任务',
-				subTitle: '2020-05-15',
+				moment,
 				thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg',
 			};
 		},
+		mounted() {
+			console.log('item', this.type)
+		},
 		methods: {
 			goDesc() {
+				this.$util.store.nowTask = this.data
 				uni.navigateTo({
 					url: `/pages/task-desc/task-desc?type=${this.type}`
 				});
@@ -66,5 +69,8 @@
 		text-align: right !important;
 		font-size: 28rpx;
 		color: #aaa;
+	}
+	/deep/ .u-collapse-item {
+		margin-bottom: -25rpx !important;
 	}
 </style>

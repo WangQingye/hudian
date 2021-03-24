@@ -32,8 +32,8 @@
 }
 .my-info .info .avatar.data-v-52d94f66 {
   margin-right: 50rpx;
-  border: 1px solid #bbb;
   padding: 10rpx;
+  border-radius: 50%;
 }
 .my-info .info .name-info .name.data-v-52d94f66 {
   font-size: 40rpx;

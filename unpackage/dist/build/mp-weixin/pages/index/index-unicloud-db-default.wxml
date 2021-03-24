@@ -1,0 +1,1 @@
+<view class="data-v-dcdaed64"><block wx:for="{{data}}" wx:for-item="i" wx:for-index="__i0__"><task-item vue-id="{{'8dd740cc-7-'+__i0__}}" type="before-receive" data="{{i}}" class="data-v-dcdaed64" bind:__l="__l"></task-item></block></view>

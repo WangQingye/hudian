@@ -1,5 +1,5 @@
 {
-    "name" : "互点",
+    "name" : "互助互点",
     "appid" : "__UNI__550780E",
     "description" : "",
     "versionName" : "1.0.0",
@@ -8,7 +8,10 @@
     "app-plus" : {
         "nvueCompiler" : "uni-app",
         "compilerVersion" : 3,
-        "modules" : {},
+        "modules" : {},    
+		"app-plus": {
+        "usingComponents": true
+		},
         "distribute" : {
             "android" : {
                 "permissions" : [
@@ -42,7 +45,7 @@
     },
     "quickapp" : {},
     "mp-weixin" : {
-        "appid" : "wx0c2ccdb2e7e90e35",
+        "appid" : "wxa5c8a9951e47b6ba",
         "setting" : {
             "urlCheck" : true,
             "minified" : true,
