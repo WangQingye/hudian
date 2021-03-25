@@ -1,5 +1,5 @@
 <template>
-	<view class="my-info" v-if="userInfo.openId">
+	<view class="my-info" v-if="userInfo.nickName">
 		<view class="info">
 			<u-avatar class="avatar" size="140" :src="userInfo.avatarUrl"></u-avatar>
 			<view class="name-info">
@@ -27,26 +27,15 @@
 			}
 		},
 		onShow() {
-			if (!this.$util.store.userInfo.nickName) {	
-				uni.getUserInfo({
-					success: (res) => {
-						this.$util.store.userInfo.nickName = res.userInfo.nickName
-						this.$util.store.userInfo.avatarUrl = res.userInfo.avatarUrl
-						this.getUserInfo()
-					},
-					fail: (res) => {
-						uni.navigateTo({
-							url: `/pages/login/login`
-						});
-					}
-				})
-			} else {
-				this.userInfo = this.$util.store.userInfo
-			}
+			this.getUserInfo()
 		},
 		methods: {
 			async getUserInfo() {
-				this.userInfo = await this.$util.getUserInfo();				console.log(this.userInfo)
+				if (!this.$util.store.userInfo.nickName) {
+					this.userInfo = await this.$util.getUserInfo();
+				}else {
+					this.userInfo = this.$util.store.userInfo
+				}
 			},
 			goPublish(type) {
 				uni.navigateTo({

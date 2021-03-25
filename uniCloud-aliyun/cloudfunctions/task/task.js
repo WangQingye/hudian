@@ -27,10 +27,17 @@ exports.addTask = async function(event, context) {
 }
 exports.receiveTask = async function(event, context) {
 	console.log(event)
+	// 获取任务原型
 	let task = await db.collection("task").where({
 		_id: event._id,
 	}).get({getOne:true});
-	console.log(task.data)
+	task = task.data[0]
+	// 这个必须服务器来判断
+	if (task.restNum < 1) {
+		return {
+			err:'该任务已被领完，快去找其他任务吧'
+		}
+	}
 	// 添加任务
 	// let task = {
 	// 	type: event.type,

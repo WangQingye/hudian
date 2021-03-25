@@ -190,27 +190,16 @@ var _default =
       userInfo: {} };
 
   },
-  onShow: function onShow() {var _this = this;
-    if (!this.$util.store.userInfo.nickName) {
-      uni.getUserInfo({
-        success: function success(res) {
-          _this.$util.store.userInfo.nickName = res.userInfo.nickName;
-          _this.$util.store.userInfo.avatarUrl = res.userInfo.avatarUrl;
-          _this.getUserInfo();
-        },
-        fail: function fail(res) {
-          uni.navigateTo({
-            url: "/pages/login/login" });
-
-        } });
-
-    } else {
-      this.userInfo = this.$util.store.userInfo;
-    }
+  onShow: function onShow() {
+    this.getUserInfo();
   },
   methods: {
-    getUserInfo: function getUserInfo() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
-                  _this2.$util.getUserInfo());case 2:_this2.userInfo = _context.sent;console.log(_this2.userInfo);case 4:case "end":return _context.stop();}}}, _callee);}))();
+    getUserInfo: function getUserInfo() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:if (
+                _this.$util.store.userInfo.nickName) {_context.next = 6;break;}_context.next = 3;return (
+                  _this.$util.getUserInfo());case 3:_this.userInfo = _context.sent;_context.next = 7;break;case 6:
+
+                _this.userInfo = _this.$util.store.userInfo;case 7:case "end":return _context.stop();}}}, _callee);}))();
+
     },
     goPublish: function goPublish(type) {
       uni.navigateTo({

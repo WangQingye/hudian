@@ -70,8 +70,11 @@
 		},
 		onLoad(option) {
 			this.type = option.type
-			console.log(this.$util.store)
 			this.taskData = this.$util.store.nowTask
+			// 如果是自己的任务那么转换界面
+			// if (this.taskData.creator === this.$util.store.userInfo.openId) {
+			// 	this.type = 'publish'
+			// }
 			this.getTimeText()
 		},
 		onUnload() {
@@ -102,7 +105,10 @@
 					delta: 1
 				})
 			},
-			confirmReceive() {
+			async confirmReceive() {
+				if (!this.$util.store.userInfo.nickName) {
+					await this.$util.getUserInfo();
+				}
 				this.$util.http('receiveTask', this.taskData).then(data => {
 					console.log(data)
 					// this.$util.showToast('发布成功')

@@ -18,7 +18,9 @@ export default class util {
 		});
 	}
 	http(funcName, data) {
+		console.log(this.store)
 		let info = this.store.userInfo
+		console.log(info)
 		return new Promise((resolve, reject) => {
 			uniCloud.callFunction({
 					name: 'task',
@@ -29,23 +31,37 @@ export default class util {
 					}
 				})
 				.then(res => {
-					if (!res.errMsg) {
+					if (!res.result.err) {
 						resolve(res)
 					} else {
 						uni.showToast({
-							title: errMsg,
-							duration: 1500,
+							title: res.result.err,
+							duration: 2000,
 							icon: 'none'
 						});
+						reject()
 					}
 				});
 		})
 	}
 	async getUserInfo() {
-		let res = await this.http('getUserInfo',this.store.userInfo)
-		console.log('userinfo:',res.result.data[0])
-		this.store.userInfo = res.result.data[0]
-		return res.result.data[0]
+		return new Promise((resolve, reject) => {	
+			uni.getUserInfo({
+				success: async (res) => {
+					this.store.userInfo.nickName = res.userInfo.nickName
+					this.store.userInfo.avatarUrl = res.userInfo.avatarUrl
+					let ret = await this.http('getUserInfo',this.store.userInfo)
+					this.store.userInfo = ret.result.data[0]
+					resolve(this.store.userInfo)
+				},
+				fail: (res) => {
+					uni.navigateTo({
+						url: `/pages/login/login`
+					});
+					reject()
+				}
+			})
+		})
 	}
 	// store: {
 	// 	userInfo: {},

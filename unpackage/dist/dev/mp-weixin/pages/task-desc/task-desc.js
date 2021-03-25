@@ -106,7 +106,7 @@ try {
       return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 302))
     },
     uUpload: function() {
-      return Promise.all(/*! import() | uview-ui/components/u-upload/u-upload */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-upload/u-upload")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-upload/u-upload.vue */ 309))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-upload/u-upload */ "uview-ui/components/u-upload/u-upload").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-upload/u-upload.vue */ 309))
     },
     uModal: function() {
       return __webpack_require__.e(/*! import() | uview-ui/components/u-modal/u-modal */ "uview-ui/components/u-modal/u-modal").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-modal/u-modal.vue */ 316))
@@ -175,7 +175,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 13));
 
 
 
@@ -233,72 +233,78 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _moment = _interopRequireDefault(__webpack_require__(/*! moment */ 57));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default = { onShareAppMessage: function onShareAppMessage(res) {if (res.from === 'button') {// 来自页面内分享按钮
-      console.log(res.target);}return { title: '快来帮我完成任务！', path: '/pages/test/test?id=123', imageUrl: '../../static/share.png' };}, onLoad: function onLoad(option) {this.type = option.type;console.log(this.$util.store);this.taskData = this.$util.store.nowTask;this.getTimeText();}, onUnload: function onUnload() {clearInterval(this.countTimer);}, data: function data() {return { type: 'publish', action: 'aa', fileList: [{ url: 'https://cdn.uviewui.com/uview/example/fade.jpg' }], showReceiveConfirm: false, showSubmitConfirm: false, countTime: '', countTimer: '', taskData: {} };}, methods: { copy: function copy() {uni.setClipboardData({ data: '任务链接' });}, goBack: function goBack() {uni.navigateBack({ delta: 1 });}, confirmReceive: function confirmReceive() {this.$util.http('receiveTask', this.taskData).then(function (data) {console.log(data); // this.$util.showToast('发布成功')
-        // this.$util.getUserInfo()
-        // this.$util.showToast('领取成功', '', () => {
-        // 	uni.navigateTo({
-        // 		url: `/pages/task-list/task-list?type=receive`
-        // 	})
-        // })
-      });}, confirmSubmit: function confirmSubmit() {this.$util.showToast('提交成功', '', function () {uni.navigateTo({ url: "/pages/task-list/task-list?type=receive" });});}, clickDelete: function clickDelete() {
+var _moment = _interopRequireDefault(__webpack_require__(/*! moment */ 57));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
+{
+  onShareAppMessage: function onShareAppMessage(res) {
+    if (res.from === 'button') {// 来自页面内分享按钮
+      console.log(res.target);
+    }
+    return {
+      title: '快来帮我完成任务！',
+      path: '/pages/test/test?id=123',
+      imageUrl: '../../static/share.png' };
+
+  },
+  onLoad: function onLoad(option) {
+    this.type = option.type;
+    this.taskData = this.$util.store.nowTask;
+    // 如果是自己的任务那么转换界面
+    // if (this.taskData.creator === this.$util.store.userInfo.openId) {
+    // 	this.type = 'publish'
+    // }
+    this.getTimeText();
+  },
+  onUnload: function onUnload() {
+    clearInterval(this.countTimer);
+  },
+  data: function data() {
+    return {
+      type: 'publish',
+      action: 'aa',
+      fileList: [{
+        url: 'https://cdn.uviewui.com/uview/example/fade.jpg' }],
+
+      showReceiveConfirm: false,
+      showSubmitConfirm: false,
+      countTime: '',
+      countTimer: '',
+      taskData: {} };
+
+  },
+  methods: {
+    copy: function copy() {
+      uni.setClipboardData({
+        data: '任务链接' });
+
+    },
+    goBack: function goBack() {
+      uni.navigateBack({
+        delta: 1 });
+
+    },
+    confirmReceive: function confirmReceive() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:if (
+                _this.$util.store.userInfo.nickName) {_context.next = 3;break;}_context.next = 3;return (
+                  _this.$util.getUserInfo());case 3:
+
+                _this.$util.http('receiveTask', _this.taskData).then(function (data) {
+                  console.log(data);
+                  // this.$util.showToast('发布成功')
+                  // this.$util.getUserInfo()
+                  // this.$util.showToast('领取成功', '', () => {
+                  // 	uni.navigateTo({
+                  // 		url: `/pages/task-list/task-list?type=receive`
+                  // 	})
+                  // })
+                });case 4:case "end":return _context.stop();}}}, _callee);}))();
+    },
+    confirmSubmit: function confirmSubmit() {
+      this.$util.showToast('提交成功', '', function () {
+        uni.navigateTo({
+          url: "/pages/task-list/task-list?type=receive" });
+
+      });
+    },
+    clickDelete: function clickDelete() {
       var that = this;
       uni.showModal({
         title: '确认删除',
@@ -327,17 +333,17 @@ var _default = { onShareAppMessage: function onShareAppMessage(res) {if (res.fro
 
 
     },
-    getTimeText: function getTimeText() {var _this = this;
+    getTimeText: function getTimeText() {var _this2 = this;
       this.countTimer = setInterval(function () {
         var start = (0, _moment.default)(new Date()); //获取开始时间
         var end = (0, _moment.default)(new Date("2021/03/19 15:58:00")); //结束时间
         var diff = end.diff(start); //时间差
         if (diff < 0) {
-          _this.countTime = '已超时';
-          clearInterval(_this.countTimer);
+          _this2.countTime = '已超时';
+          clearInterval(_this2.countTimer);
           return;
         }
-        _this.countTime = "".concat(
+        _this2.countTime = "".concat(
         _moment.default.duration(diff).days() ? _moment.default.duration(diff).days() + ' 天 ' : '').concat(_moment.default.duration(diff).hours() ? _moment.default.duration(diff).hours() + ' 小时 ' : '').concat(_moment.default.duration(diff).minutes() ? _moment.default.duration(diff).minutes() + ' 分 ' : '').concat(_moment.default.duration(diff).seconds() ? _moment.default.duration(diff).seconds() + ' 秒' : ''); //格式化为需要的格式 这里是时分秒
       }, 1000);
     } } };exports.default = _default;
