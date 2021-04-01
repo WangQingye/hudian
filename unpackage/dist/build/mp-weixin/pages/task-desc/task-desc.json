@@ -5,7 +5,7 @@
     "u-cell-item": "/uview-ui/components/u-cell-item/u-cell-item",
     "u-button": "/uview-ui/components/u-button/u-button",
     "u-image": "/uview-ui/components/u-image/u-image",
-    "u-upload": "/uview-ui/components/u-upload/u-upload",
+    "uni-file-picker": "/uni_modules/uni-file-picker/components/uni-file-picker/uni-file-picker",
     "u-modal": "/uview-ui/components/u-modal/u-modal"
   }
 }

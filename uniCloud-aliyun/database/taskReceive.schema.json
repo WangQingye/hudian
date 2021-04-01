@@ -14,6 +14,9 @@
 		"taskId": {
 			"description": "任务ID"
 		},
+		"taskDetail": {
+			"description": "原始任务详情"
+		},
 		"receiveUserId": {
 			"description": "领取人ID"
 		},
@@ -24,13 +27,15 @@
 			"description": "领取时间"
 		},
 		"limitTime": {
-			"description": "限制时间"
+			"description": "限制时间",
+			"bsonType": "number"
 		},
 		"pastTime": {
 			"description": "过期时间"
 		},
 		"status": {
-			"description": "任务状态：已过期/进行中/已完成/申述中/申述通过/申述失败"
+			"description": "任务状态：已过期:0/进行中:1/已完成:2/申述中:3/申述通过:4/申述失败:5",
+			"bsonType": "number"
 		},
 		"desc": {
 			"description": "提交备注"

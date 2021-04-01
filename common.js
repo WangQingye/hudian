@@ -1,27 +1,31 @@
 export default class util {
 	constructor() {
-	    this.store = {
+		this.store = {
 			userInfo: {},
 			nowTask: {}
 		}
+		this.taskStatusType = [
+			'已过期', '进行中', '已完成', '申述中', '申述通过', '申述失败'
+		]
 	}
 	showToast(text, icon, cb) {
 		uni.showToast({
 			title: text,
-			duration: 1500,
+			duration: 1000,
 			icon: icon || 'none',
 			complete() {
 				setTimeout(() => {
 					cb && cb()
-				}, 1500)
+				}, 1000)
 			}
 		});
 	}
 	http(funcName, data) {
-		console.log(this.store)
 		let info = this.store.userInfo
-		console.log(info)
 		return new Promise((resolve, reject) => {
+			uni.showLoading({
+				title: '加载中'
+			});
 			uniCloud.callFunction({
 					name: 'task',
 					data: {
@@ -31,6 +35,7 @@ export default class util {
 					}
 				})
 				.then(res => {
+					uni.hideLoading()
 					if (!res.result.err) {
 						resolve(res)
 					} else {
@@ -41,16 +46,16 @@ export default class util {
 						});
 						reject()
 					}
-				});
+				})
 		})
 	}
 	async getUserInfo() {
-		return new Promise((resolve, reject) => {	
+		return new Promise((resolve, reject) => {
 			uni.getUserInfo({
 				success: async (res) => {
 					this.store.userInfo.nickName = res.userInfo.nickName
 					this.store.userInfo.avatarUrl = res.userInfo.avatarUrl
-					let ret = await this.http('getUserInfo',this.store.userInfo)
+					let ret = await this.http('getUserInfo', this.store.userInfo)
 					this.store.userInfo = ret.result.data[0]
 					resolve(this.store.userInfo)
 				},
@@ -63,8 +68,4 @@ export default class util {
 			})
 		})
 	}
-	// store: {
-	// 	userInfo: {},
-	// 	nowTask: {}
-	// }
 }

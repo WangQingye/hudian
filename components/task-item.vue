@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<u-card :title="`${data.type}任务`" :sub-title="moment(data.createTime).format('YYYY-MM-DD')" :thumb="data.avatar" @click="goDesc"
+		<u-card :title="`${data.type || data.taskDetail.type}任务`" :sub-title="moment(data.createTime).format('YYYY-MM-DD')" :thumb="data.avatar || data.taskDetail.avatar" @click="goDesc"
 		 border-radius="0" :body-style="{display:'none'}">
 			<view slot="foot"><!-- 
 				<u-cell-item v-if="type === 'publish'" icon="setting-fill" title="剩余3次-发布5次" :arrow="false">
@@ -14,9 +14,9 @@
 						</view>
 					</u-collapse-item>
 				</u-collapse>
-				<u-icon v-if="type !== 'publish'" name="gift" size="34" color="" :label="`${data.score}积分`"></u-icon>
+				<u-icon v-if="type !== 'publish'" name="gift" size="34" color="" :label="`${data.score || data.taskDetail.score}积分`"></u-icon>
 				<text v-if="type !== 'publish' && type !== 'receive'" style="float: right;">{{`剩余${data.restNum}次`}}</text>
-				<text v-if="type === 'receive'" style="float: right;"><text style="color:red">未完成</text></text>
+				<text v-if="type === 'receive'" style="float: right;"><text style="color:red">{{getStatusText()}}</text></text>
 			</view>
 		</u-card>
 	</view>
@@ -33,7 +33,8 @@
 			};
 		},
 		mounted() {
-			console.log('item', this.type)
+			console.log(this.type, this.data)
+			console.log(this.$util.taskStatusType[this.data.status])
 		},
 		methods: {
 			goDesc() {
@@ -46,6 +47,9 @@
 				uni.navigateTo({
 					url: `/pages/finish-task/finish-task?id=${id}`
 				});
+			},
+			getStatusText() {
+				return this.$util.taskStatusType[this.data.status]
 			}
 		}
 	}

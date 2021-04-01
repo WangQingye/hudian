@@ -1,10 +1,11 @@
 <template>
 	<view>
 		<taskItem v-for="task in list" :key="task._id" :data="task" :type="type"></taskItem>
-		<unicloud-db v-slot:default="{data, loading, error, options}" :options="options" :collection="'task'" :where="typeSearch" :orderby="sort">
-			<view>
+		<unicloud-db v-if="collection" v-slot:default="{data, loading, error, options}" :options="options" :collection="collection" :where="typeSearch" :orderby="sort">
+			<view v-if="data.length">
 				<task-item v-for="i in data" :type="options.type" :data="i"></task-item>
 			</view>
+			<view style="color: #aaa; text-align: center; margin: 50rpx;" v-if="!data.length && !loading">暂无数据</view>
 		</unicloud-db>
 	</view>
 </template>
@@ -25,17 +26,29 @@
 		},
 		data() { 
 			return {
-				type: 'publish',
+				type: '',
 				list: [],
 				options: {
-					type: 'publish'
+					type: ''
 				}
 			};
 		},
 		computed: {
+			collection() {
+				console.log(222)
+				if (this.type === 'publish') {
+					return `task`
+				} else if (this.type === 'receive') {
+					return `taskReceive`
+				}
+			},
 			typeSearch() {
 				// return `creator == ${this.$util.store.userInfo.openId}`
-				return `creator == '${this.$util.store.userInfo.openId}'`
+				if (this.type === 'publish') {
+					return `creator == '${this.$util.store.userInfo.openId}'`
+				} else if (this.type === 'receive') {
+					return `receiveUserId == '${this.$util.store.userInfo.openId}'`
+				}
 			},
 			sort() {
 				return 'createTime desc'

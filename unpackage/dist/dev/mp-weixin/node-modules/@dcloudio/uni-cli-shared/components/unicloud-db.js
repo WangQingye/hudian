@@ -1,6 +1,6 @@
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["node-modules/@dcloudio/uni-cli-shared/components/unicloud-db"],{
 
-/***/ 276:
+/***/ 278:
 /*!**************************************************************************!*\
   !*** ./node_modules/@dcloudio/uni-cli-shared/components/unicloud-db.vue ***!
   \**************************************************************************/
@@ -9,8 +9,8 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _unicloud_db_vue_vue_type_template_id_8ef09edc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./unicloud-db.vue?vue&type=template&id=8ef09edc& */ 277);
-/* harmony import */ var _unicloud_db_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./unicloud-db.vue?vue&type=script&lang=js& */ 279);
+/* harmony import */ var _unicloud_db_vue_vue_type_template_id_8ef09edc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./unicloud-db.vue?vue&type=template&id=8ef09edc& */ 279);
+/* harmony import */ var _unicloud_db_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./unicloud-db.vue?vue&type=script&lang=js& */ 281);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _unicloud_db_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _unicloud_db_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 /* harmony import */ var _vue_cli_plugin_uni_packages_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js */ 10);
 
@@ -39,7 +39,7 @@ component.options.__file = "Applications/HBuilderX.app/Contents/HBuilderX/plugin
 
 /***/ }),
 
-/***/ 277:
+/***/ 279:
 /*!*********************************************************************************************************!*\
   !*** ./node_modules/@dcloudio/uni-cli-shared/components/unicloud-db.vue?vue&type=template&id=8ef09edc& ***!
   \*********************************************************************************************************/
@@ -48,7 +48,7 @@ component.options.__file = "Applications/HBuilderX.app/Contents/HBuilderX/plugin
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _vue_cli_plugin_uni_packages_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_16_0_webpack_uni_mp_loader_lib_template_js_vue_cli_plugin_uni_packages_webpack_uni_app_loader_page_meta_js_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_webpack_uni_mp_loader_lib_style_js_unicloud_db_vue_vue_type_template_id_8ef09edc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!../../webpack-uni-mp-loader/lib/template.js!../../vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!../../vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!../../webpack-uni-mp-loader/lib/style.js!./unicloud-db.vue?vue&type=template&id=8ef09edc& */ 278);
+/* harmony import */ var _vue_cli_plugin_uni_packages_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_16_0_webpack_uni_mp_loader_lib_template_js_vue_cli_plugin_uni_packages_webpack_uni_app_loader_page_meta_js_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_webpack_uni_mp_loader_lib_style_js_unicloud_db_vue_vue_type_template_id_8ef09edc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!../../webpack-uni-mp-loader/lib/template.js!../../vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!../../vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!../../webpack-uni-mp-loader/lib/style.js!./unicloud-db.vue?vue&type=template&id=8ef09edc& */ 280);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _vue_cli_plugin_uni_packages_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_16_0_webpack_uni_mp_loader_lib_template_js_vue_cli_plugin_uni_packages_webpack_uni_app_loader_page_meta_js_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_webpack_uni_mp_loader_lib_style_js_unicloud_db_vue_vue_type_template_id_8ef09edc___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _vue_cli_plugin_uni_packages_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_16_0_webpack_uni_mp_loader_lib_template_js_vue_cli_plugin_uni_packages_webpack_uni_app_loader_page_meta_js_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_webpack_uni_mp_loader_lib_style_js_unicloud_db_vue_vue_type_template_id_8ef09edc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
@@ -61,7 +61,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 278:
+/***/ 280:
 /*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!./node_modules/@dcloudio/uni-cli-shared/components/unicloud-db.vue?vue&type=template&id=8ef09edc& ***!
   \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
@@ -88,7 +88,7 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ 279:
+/***/ 281:
 /*!***************************************************************************************************!*\
   !*** ./node_modules/@dcloudio/uni-cli-shared/components/unicloud-db.vue?vue&type=script&lang=js& ***!
   \***************************************************************************************************/
@@ -97,14 +97,14 @@ render._withStripped = true
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_loader_lib_index_js_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_12_1_webpack_uni_mp_loader_lib_script_js_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_webpack_uni_mp_loader_lib_style_js_unicloud_db_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../babel-loader/lib!../../vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!../../webpack-uni-mp-loader/lib/script.js!../../vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!../../webpack-uni-mp-loader/lib/style.js!./unicloud-db.vue?vue&type=script&lang=js& */ 280);
+/* harmony import */ var _babel_loader_lib_index_js_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_12_1_webpack_uni_mp_loader_lib_script_js_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_webpack_uni_mp_loader_lib_style_js_unicloud_db_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../babel-loader/lib!../../vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!../../webpack-uni-mp-loader/lib/script.js!../../vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!../../webpack-uni-mp-loader/lib/style.js!./unicloud-db.vue?vue&type=script&lang=js& */ 282);
 /* harmony import */ var _babel_loader_lib_index_js_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_12_1_webpack_uni_mp_loader_lib_script_js_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_webpack_uni_mp_loader_lib_style_js_unicloud_db_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_loader_lib_index_js_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_12_1_webpack_uni_mp_loader_lib_script_js_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_webpack_uni_mp_loader_lib_style_js_unicloud_db_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _babel_loader_lib_index_js_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_12_1_webpack_uni_mp_loader_lib_script_js_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_webpack_uni_mp_loader_lib_style_js_unicloud_db_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _babel_loader_lib_index_js_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_12_1_webpack_uni_mp_loader_lib_script_js_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_webpack_uni_mp_loader_lib_style_js_unicloud_db_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
  /* harmony default export */ __webpack_exports__["default"] = (_babel_loader_lib_index_js_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_12_1_webpack_uni_mp_loader_lib_script_js_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_webpack_uni_mp_loader_lib_style_js_unicloud_db_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
-/***/ 280:
+/***/ 282:
 /*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!./node_modules/@dcloudio/uni-cli-shared/components/unicloud-db.vue?vue&type=script&lang=js& ***!
   \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
@@ -645,7 +645,7 @@ var attrs = [
     'node-modules/@dcloudio/uni-cli-shared/components/unicloud-db-create-component',
     {
         'node-modules/@dcloudio/uni-cli-shared/components/unicloud-db-create-component':(function(module, exports, __webpack_require__){
-            __webpack_require__('1')['createComponent'](__webpack_require__(276))
+            __webpack_require__('1')['createComponent'](__webpack_require__(278))
         })
     },
     [['node-modules/@dcloudio/uni-cli-shared/components/unicloud-db-create-component']]

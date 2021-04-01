@@ -22,16 +22,20 @@
 			"description": "头像"
 		},
 		"score": {
-			"description": "积分"
+			"description": "积分",
+			"bsonType": "number"
 		},
 		"credit": {
-			"description": "信用分"
+			"description": "信用分",
+			"bsonType": "number"
 		},
 		"status": {
-			"description": "用户状态：激活/冻结"
+			"description": "用户状态：激活1/冻结0",
+			"bsonType": "number"
 		},
 		"finishTaskNum": {
-			"description": "完成任务的数量，用于计算信用分加减"
+			"description": "完成任务的数量，用于计算信用分加减",
+			"bsonType": "number"
 		}
 	}
 }

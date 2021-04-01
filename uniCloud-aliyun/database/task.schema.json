@@ -25,16 +25,20 @@
 			"description": "任务描述"
 		},
 		"score": {
-			"description": "积分奖励"
+			"description": "积分奖励",
+			"bsonType": "number"
 		},
 		"totalNum": {
-			"description": "任务总数量"
+			"description": "任务总数量",
+			"bsonType": "number"
 		},
 		"restNum": {
-			"description": "任务剩余数量"
+			"description": "任务剩余数量",
+			"bsonType": "number"
 		},
 		"limitTime": {
-			"description": "任务完成时限"
+			"description": "任务完成时限",
+			"bsonType": "number"
 		},
 		"createTime": {
 			"description": "生成时间"
