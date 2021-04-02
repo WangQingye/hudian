@@ -1,6 +1,6 @@
 
 wx.createComponent({
     generic:true,
-    props: {data:{type:null},loading:{type:null},error:{type:null},options:{type:null}},
+    props: {data:{type:null},loading:{type:null},error:{type:null},options:{type:null},hasMore:{type:null}},
     render: function(){}
 })

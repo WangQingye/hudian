@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="task-desc">
-			<u-cell-group>
+			<u-cell-group v-if="taskData._id">
 				<u-cell-item icon="clock" title="任务状态" v-if="type === 'receive'" :value="countTime" :arrow="false"></u-cell-item>
 				<u-cell-item icon="order" title="任务平台" :arrow="false" :value="taskData.type || taskData.taskDetail.type"></u-cell-item>
 				<u-cell-item v-if="type !== 'receive'" icon="integral" title="剩余次数" :value="`${taskData.restNum}/${taskData.totalNum}`"
@@ -27,8 +27,8 @@
 					<view v-if="taskData.status == 1">
 						<uni-file-picker v-model="imageValue" file-mediatype="image" mode="grid" :limit="1" @delete="deleteImg"></uni-file-picker>
 					</view>
-					<view v-if="taskData.status !== 1 && taskData.submitImg" slot="right-icon">
-						<u-image width="200rpx" height="200rpx" :src="taskData.submitImg"></u-image>
+					<view slot="right-icon">
+						<u-image v-if="taskData.status !== 1 && taskData.submitImg" width="200rpx" height="200rpx" :src="taskData.submitImg"></u-image>
 					</view>
 				</u-cell-item>
 			</u-cell-group>
@@ -94,6 +94,7 @@
 				})
 			}
 			console.log(this.taskData)
+			console.log(this.taskData.status !== 1)
 			this.getTimeText()
 		},
 		onUnload() {
@@ -135,7 +136,7 @@
 					taskData: this.taskData
 				})
 				this.$util.showToast('领取成功', '', () => {
-					uni.navigateTo({
+					uni.redirectTo({
 						url: `/pages/task-list/task-list?type=receive`
 					})
 				})
@@ -149,7 +150,8 @@
 				await this.$util.http('submitTask', {
 					receiveId: this.taskData._id,
 					status: 2,
-					submitImg: this.imageValue[0].url
+					submitImg: this.imageValue[0].url,
+					score: this.taskData.taskDetail.score
 				})
 				this.$util.showToast('提交成功', '', () => {
 					uni.switchTab({

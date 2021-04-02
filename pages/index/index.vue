@@ -20,17 +20,23 @@
 				</u-dropdown-item>
 			</u-dropdown>
 		</view>
-		<unicloud-db ref="udb" v-slot:default="{data, loading, error, options}" collection="task" :where="typeSearch" :orderby="sort">
-		  <view>
-			<task-item v-for="i in data" :type="'before-receive'" :data="i"></task-item>
-		  </view>
+		<unicloud-db ref="udb" v-slot:default="{data, loading, error, options, hasMore}" collection="task" :where="typeSearch"
+		 :orderby="sort" manual :page-size="5">
+			<view>
+				<task-item v-for="i in data" :type="'before-receive'" :data="i"></task-item>
+			</view>
+			<view style="margin: 30rpx 0;">
+				<u-loadmore :status=" loading ? 'loading' : hasMore ? 'loadmore' : 'nomore'" />
+			</view>
 		</unicloud-db>
 	</view>
 </template>
 
 <script>
 	import taskItem from '../../components/task-item.vue'
+	import {pullDownMixin} from '../../common/mixin.js'
 	export default {
+		mixins: [pullDownMixin],
 		components: {
 			taskItem
 		},
@@ -78,8 +84,7 @@
 		mounted() {
 			uni.login({
 				success: (res) => {
-					this.$util.http('getOpenId',res).then(data => {
-						console.log(data)
+					this.$util.http('getOpenId', res).then(data => {
 						this.$util.store.userInfo.openId = data.result.openid
 					})
 				}
@@ -98,27 +103,29 @@
 				})
 				if (this.originalType) this.typeArr.push(this.originalType)
 				this.$refs.uDropdown.close();
-				this.$nextTick(() => {	
-					this.$refs.udb.loadData({clear: true})
+				this.$nextTick(() => {
+					this.$refs.udb.loadData({
+						clear: true
+					})
 				})
 			}
 		},
 		computed: {
 			typeSearch() {
-				console.log(this.typeArr)
+				let ret = 'restNum > 0 && '
 				if (this.typeArr.indexOf('全部') !== -1 || this.typeArr.length === 0) {
-					return "type != ''"
+					return ret + "type != ''"
 				} else {
 					let str = ''
 					this.typeArr.forEach(type => {
 						str += `type == '${type}'||`
 					})
 					str = str.slice(0, str.length - 2)
-					return str
+					return ret + str
 				}
 			},
 			sort() {
-				switch (this.order){
+				switch (this.order) {
 					case 1:
 						return 'createTime desc'
 						break;

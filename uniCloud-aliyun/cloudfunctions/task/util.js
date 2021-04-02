@@ -65,7 +65,6 @@ exports.updateReceiveRecordStatus = async function(receiveId, status, submitImg)
 	}
 	// 如果是废弃任务，比如任务过期或删除任务，那么需要加回一下restNum
 	if (status == 0 || status == 'del') updateTaskData.restNum = task.restNum + 1
-	console.log('bbb',updateTaskData)
 	await db.collection("task").where({
 		_id: receive.taskId,
 	}).update(updateTaskData);

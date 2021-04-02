@@ -31,11 +31,7 @@
 		},
 		methods: {
 			async getUserInfo() {
-				if (!this.$util.store.userInfo.nickName) {
-					this.userInfo = await this.$util.getUserInfo();
-				}else {
-					this.userInfo = this.$util.store.userInfo
-				}
+				this.userInfo = await this.$util.getUserInfo();
 			},
 			goPublish(type) {
 				uni.navigateTo({

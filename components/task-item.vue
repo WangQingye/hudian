@@ -33,8 +33,6 @@
 			};
 		},
 		mounted() {
-			console.log(this.type, this.data)
-			console.log(this.$util.taskStatusType[this.data.status])
 		},
 		methods: {
 			goDesc() {

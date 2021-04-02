@@ -5,7 +5,8 @@
 	"pages": [{
 		"path": "pages/index/index",
 		"style": {
-			"navigationBarTitleText": "互助互点"
+			"navigationBarTitleText": "互助互点",
+			"enablePullDownRefresh": true
 		}
 	}, {
 		"path": "pages/task-desc/task-desc",

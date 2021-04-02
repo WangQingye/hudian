@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App'
-import util from './common.js'
+import util from './common/index.js'
 import uView from "uview-ui";
 Vue.use(uView);
 Vue.config.productionTip = false

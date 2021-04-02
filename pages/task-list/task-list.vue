@@ -2,7 +2,7 @@
 	<view>
 		<taskItem v-for="task in list" :key="task._id" :data="task" :type="type"></taskItem>
 		<unicloud-db v-if="collection" v-slot:default="{data, loading, error, options}" :options="options" :collection="collection" :where="typeSearch" :orderby="sort">
-			<view v-if="data.length">
+			<view>
 				<task-item v-for="i in data" :type="options.type" :data="i"></task-item>
 			</view>
 			<view style="color: #aaa; text-align: center; margin: 50rpx;" v-if="!data.length && !loading">暂无数据</view>

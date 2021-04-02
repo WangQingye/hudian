@@ -56,6 +56,8 @@ exports.receiveTask = async function(event, context) {
 // 领取条 - 提交任务
 exports.submitTask = async function(event, context) {
 	let res = await util.updateReceiveRecordStatus(event.receiveId, event.status, event.submitImg)
+	// 提交后获得一下积分
+	await util.updateUserScore(event.userInfo.openId, event.userInfo.score + Number(event.score))
 	return res
 }
 // 领取条 - 放弃任务

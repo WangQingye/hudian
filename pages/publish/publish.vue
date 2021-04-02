@@ -136,18 +136,20 @@
 				this.$refs.uForm.validate(valid => {
 					if (valid) {
 						if (this.$util.store.userInfo.score < (this.form.score * this.form.num)) {
-							console.log(111)
-							this.$util.showToast('积分不足，您当前的可用积分为：' + this.$util.store.userInfo.score)
+							this.$util.showToast('积分不足，您当前的可用积分为：' + this.$util.store.userInfo.score + '，快去做任务吧！')
 							return
 						} else if (this.$util.store.userInfo.status == 0) {
 							this.$util.showToast('您的账号已被冻结')
 						} else {
 							this.form.type = this.form.originType || this.form.type
-							this.$util.http('addTask', Object.assign(this.form,{
+							this.$util.http('addTask', Object.assign(this.form, {
 								userInfo: this.$util.store.userInfo
 							})).then(data => {
-								console.log(data)
-								this.$util.showToast('发布成功')
+								this.$util.showToast('发布成功', '', () => {
+									uni.redirectTo({
+										url:`/pages/task-list/task-list?type=publish`
+									})
+								})
 								this.$util.getUserInfo()
 							})
 						}
