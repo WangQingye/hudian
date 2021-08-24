@@ -430,6 +430,7 @@ var _moment = _interopRequireDefault(__webpack_require__(/*! moment */ 58));func
           var diff = end.diff(start); //时间差
           if (diff < 0) {
             _this3.countTime = '已超时';
+            _this3.taskData.status = 0;
             clearInterval(_this3.countTimer);
             return;
           }

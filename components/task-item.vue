@@ -9,14 +9,14 @@
 				<u-icon v-if="type === 'publish'"  style="float: right;" name="setting-fill" size="34" color="" :label="`剩余次数${data.restNum}/${data.totalNum}`"></u-icon>			
 				<u-collapse slot="right-icon" v-if="type === 'publish'">
 					<u-collapse-item title="完成情况">
-						<view v-for="i in 3" :key="i" style="margin-bottom: 25rpx; text-decoration: underline; color: #2979ff;">
-							<text @click.stop="goFinish">2020-11-05 11:23 用户A完成</text>
+						<view v-for="receive in data.receiveStatus" :key="receive.receiveId" style="margin-bottom: 25rpx; text-decoration: underline; color: #2979ff;">
+							<text @click.stop="goFinish(receive)">{{`${getStatusText(receive)} ${moment(receive.receiveTime).format('YYYY-MM-DD hh:mm:ss')} 用户${receive.receiveUserName}`}}</text>
 						</view>
 					</u-collapse-item>
 				</u-collapse>
 				<u-icon v-if="type !== 'publish'" name="gift" size="34" color="" :label="`${data.score || data.taskDetail.score}积分`"></u-icon>
 				<text v-if="type !== 'publish' && type !== 'receive'" style="float: right;">{{`剩余${data.restNum}次`}}</text>
-				<text v-if="type === 'receive'" style="float: right;"><text style="color:red">{{getStatusText()}}</text></text>
+				<text v-if="type === 'receive'" style="float: right;"><text :style="`color:${$util.statusColors[getStatusText()]}`">{{getStatusText()}}</text></text>
 			</view>
 		</u-card>
 	</view>
@@ -41,13 +41,23 @@
 					url: `/pages/task-desc/task-desc?type=${this.type}`
 				});
 			},
-			goFinish(id) {
+			goFinish(receive) {
+				if (this.getStatusText(receive) === '已超时') return
+				this.$util.store.nowReceive = receive
 				uni.navigateTo({
-					url: `/pages/finish-task/finish-task?id=${id}`
+					url: `/pages/finish-task/finish-task`
 				});
 			},
-			getStatusText() {
-				return this.$util.taskStatusType[this.data.status]
+			getStatusText(receive) {
+				let data = receive || this.data
+				if (data.status == 1) {
+					if (new Date().getTime() > data.pastTime) {
+						return '已超时'
+					}
+				return this.$util.taskStatusType[data.status]
+			},
+			getReceiveText(receive) {
+				
 			}
 		}
 	}

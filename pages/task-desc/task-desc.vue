@@ -222,6 +222,7 @@
 						let diff = end.diff(start); //时间差
 						if (diff < 0) {
 							this.countTime = '已超时'
+							this.taskData.status = 0
 							clearInterval(this.countTimer)
 							return
 						}

@@ -2,11 +2,20 @@ export default class util {
 	constructor() {
 		this.store = {
 			userInfo: {},
-			nowTask: {}
+			nowTask: {},
+			nowReceive: {}
 		}
 		this.taskStatusType = [
 			'已过期', '进行中', '已完成', '申述中', '申述通过', '申述失败'
 		]
+		this.statusColor = {
+			'已过期': 'red',
+			'进行中': '',
+			'已完成': '',
+			'申述中': '',
+			'申述通过': '',
+			'申述失败': ''
+		}
 	}
 	showToast(text, icon, cb) {
 		uni.showToast({
@@ -53,6 +62,7 @@ export default class util {
 		return new Promise((resolve, reject) => {
 			uni.getUserInfo({
 				success: async (res) => {
+					console.log('uni-getuser', res)
 					this.store.userInfo.nickName = res.userInfo.nickName
 					this.store.userInfo.avatarUrl = res.userInfo.avatarUrl
 					let ret = await this.http('getUserInfo', this.store.userInfo)

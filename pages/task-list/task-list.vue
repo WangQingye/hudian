@@ -21,7 +21,7 @@
 			this.options.type = option.type
 			console.log(this.type)
 			uni.setNavigationBarTitle({
-				title: this.type === 'publish' ? '我的发布' : '我的领取'
+				title: this.type === 'publish' ? '我发布的' : '我领取的'
 			});
 		},
 		data() { 
@@ -51,7 +51,7 @@
 				}
 			},
 			sort() {
-				return 'createTime desc'
+				return 'receiveTime desc'
 			}
 		}
 
