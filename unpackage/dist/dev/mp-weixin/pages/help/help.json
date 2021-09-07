@@ -4,6 +4,8 @@
   "usingComponents": {
     "u-collapse": "/uview-ui/components/u-collapse/u-collapse",
     "u-collapse-item": "/uview-ui/components/u-collapse-item/u-collapse-item",
-    "u-parse": "/components/u-parse/u-parse"
+    "u-parse": "/components/u-parse/u-parse",
+    "u-input": "/uview-ui/components/u-input/u-input",
+    "u-button": "/uview-ui/components/u-button/u-button"
   }
 }

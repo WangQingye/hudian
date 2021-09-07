@@ -5,7 +5,7 @@
 			<view class="name-info">
 				<view class="name">{{userInfo.nickName}}</view>
 				<view class="score">积分：{{userInfo.score}}</view>
-				<view class="score">信用分：{{userInfo.credit}}</view>
+				<view class="score" style="margin-top:10rpx">信用分：{{userInfo.credit}}</view>
 			</view>
 		</view>
 		<u-gap height="15" bg-color="#eee"></u-gap>
@@ -31,7 +31,11 @@
 		},
 		methods: {
 			async getUserInfo() {
-				this.userInfo = await this.$util.getUserInfo();
+				let res = await this.$util.getUserInfo();
+				console.log('用户信息：', res)
+				if (res) {
+					this.userInfo = res
+				}
 			},
 			goPublish(type) {
 				uni.navigateTo({

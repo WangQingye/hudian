@@ -35,7 +35,6 @@
 		},
 		computed: {
 			collection() {
-				console.log(222)
 				if (this.type === 'publish') {
 					return `task`
 				} else if (this.type === 'receive') {

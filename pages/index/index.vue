@@ -1,5 +1,6 @@
 <template>
 	<view class="container">
+		<u-button type="primary" @click="testTimer">测试定时函数</u-button>
 		<view style="border-bottom: 1px solid #eee; z-index: 999;">
 			<u-dropdown ref="uDropdown">
 				<u-dropdown-item v-model="order" title="排序" :options="orderOptions"></u-dropdown-item>
@@ -81,6 +82,12 @@
 				originalType: ''
 			};
 		},
+		onLoad(options) {
+			if (options.recommend) {
+				this.$util.store.recommendFrom = options.recommend
+			}
+			console.log(this.$util.store)
+		},
 		mounted() {
 			uni.login({
 				success: (res) => {
@@ -108,11 +115,17 @@
 						clear: true
 					})
 				})
+			},
+			testTimer() {
+				uniCloud.callFunction({
+						name: 'timer',
+						data: {}
+				})
 			}
 		},
 		computed: {
 			typeSearch() {
-				let ret = 'restNum > 0 && '
+				let ret = "restNum > 0 && "
 				if (this.typeArr.indexOf('全部') !== -1 || this.typeArr.length === 0) {
 					return ret + "type != ''"
 				} else {

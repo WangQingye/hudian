@@ -10,13 +10,13 @@
 				<u-collapse slot="right-icon" v-if="type === 'publish'">
 					<u-collapse-item title="完成情况">
 						<view v-for="receive in data.receiveStatus" :key="receive.receiveId" style="margin-bottom: 25rpx; text-decoration: underline; color: #2979ff;">
-							<text @click.stop="goFinish(receive)">{{`${getStatusText(receive)} ${moment(receive.receiveTime).format('YYYY-MM-DD hh:mm:ss')} 用户${receive.receiveUserName}`}}</text>
+							<text v-if="receive.status !== 'PASSED'" @click.stop="goFinish(receive)">{{`${getStatusText(receive)} ${moment(receive.receiveTime).format('YYYY-MM-DD hh:mm:ss')} 用户${receive.receiveUserName}`}}</text>
 						</view>
 					</u-collapse-item>
 				</u-collapse>
 				<u-icon v-if="type !== 'publish'" name="gift" size="34" color="" :label="`${data.score || data.taskDetail.score}积分`"></u-icon>
 				<text v-if="type !== 'publish' && type !== 'receive'" style="float: right;">{{`剩余${data.restNum}次`}}</text>
-				<text v-if="type === 'receive'" style="float: right;"><text :style="`color:${$util.statusColors[getStatusText()]}`">{{getStatusText()}}</text></text>
+				<text v-if="type === 'receive'" style="float: right;"><text :style="{color:$util.statusColors[getStatusText()]}">{{getStatusText()}}</text></text>
 			</view>
 		</u-card>
 	</view>
@@ -50,10 +50,11 @@
 			},
 			getStatusText(receive) {
 				let data = receive || this.data
-				if (data.status == 1) {
+				if (data.status == 'DOING') {
 					if (new Date().getTime() > data.pastTime) {
 						return '已超时'
 					}
+				}
 				return this.$util.taskStatusType[data.status]
 			},
 			getReceiveText(receive) {

@@ -1,14 +1,14 @@
 const db = uniCloud.database()
-const util = require('./util.js')
+const util = require('./util')
 exports.addTask = async function(event, context) {
 	// 添加任务
 	let task = {
 		type: event.type,
 		link: event.link,
 		img: event.img,
-		score: event.score,
-		totalNum: event.num,
-		restNum: event.num,
+		score: Number(event.score),
+		totalNum: Number(event.num),
+		restNum: Number(event.num),
 		desc: event.desc,
 		limitTime: event.time,
 		createTime: new Date().getTime(),
@@ -19,11 +19,48 @@ exports.addTask = async function(event, context) {
 	let res = await db.collection("task").add(task)
 	// 添加完成后做一下积分删减
 	let discountScore = event.score * event.num
-	await util.updateUserScore(event.userInfo.openId, event.userInfo.score - discountScore)
+	await util.addUserScore(event.userInfo.openId, -discountScore)
 	return res
+}
+exports.delTask = async function(event, context) {
+	// 删除任务
+	// 获取任务原型
+	let task = await util.getOneTask(event.taskId)
+	// 查看当前是否有被领取并且状态是DOING或者SUBMIT的任务条
+	let has = task.receiveStatus.filter((item,index) => {
+		return item.status == 'DOING' || item.status == 'SUBMIT'
+	})
+	if (has.length) {
+		return {
+			err: '当前有用户领取或提交了任务，请前往审批或等待任务过期后再删除'
+		}
+	} else {
+		// 删除任务
+		let res = await db.collection("task").where({
+			_id: event.taskId,
+		}).remove()
+		// 删除任务的时候退回剩余次数的对应的分数
+		let restScore = task.restNum * task.score
+		await util.addUserScore(event.userInfo.openId, restScore)
+		return res
+	}
 }
 // 领取任务
 exports.receiveTask = async function(event, context) {
+	let now = new Date().getTime()
+	// 判断用户是否有正在执行的任务
+	let userReceive = await db.collection("taskReceive").where({
+		receiveUserId: event.userInfo.openId,
+	}).get();
+	let hasTaskDoing = userReceive.data.filter(r => {
+		// 如果任务的过期时间没到，并且任务是进行中的状态，那么这时候用户不能领取
+		return r.pastTime > now && r.status == 'DOING'
+	})
+	if (hasTaskDoing.length) {
+		return {
+			err:'您有正在进行中的任务，先去完成吧'
+		}
+	}
 	// 获取任务原型
 	let task = await util.getOneTask(event.taskData._id)
 	// 这个必须服务器来判断
@@ -33,7 +70,6 @@ exports.receiveTask = async function(event, context) {
 		}
 	}
 	delete task.receiveStatus
-	let now = new Date().getTime()
 	let receive = {
 		taskId: task._id,
 		taskDetail: task,
@@ -42,7 +78,7 @@ exports.receiveTask = async function(event, context) {
 		receiveTime: now,
 		limitTime: task.limitTime,
 		pastTime: now + task.limitTime * 60 * 1000,
-		status: 1,
+		status: 'DOING', // 1进行中
 		desc: '',
 		submitImg: ''
 	}
@@ -53,11 +89,20 @@ exports.receiveTask = async function(event, context) {
 	await util.updateTaskRestNum(task._id, Number(task.restNum) - 1)
 	return res
 }
-// 领取条 - 提交任务
-exports.submitTask = async function(event, context) {
-	let res = await util.updateReceiveRecordStatus(event.receiveId, event.status, event.submitImg)
-	// 提交后获得一下积分
-	await util.updateUserScore(event.userInfo.openId, event.userInfo.score + Number(event.score))
+// 领取条 - 改变领取条状态 （手动，或者到时间自动执行）
+exports.updateReceiveStatus = async function(event, context) {
+	let res
+	if (event.status == 'SUBMIT') {
+		// 如果是提交任务，需要更新一下提交任务的图片
+		res = await util.updateReceiveRecordStatus(event.receiveId, event.status, event.submitImg)
+	} else if (event.status == 'FINISHED') {
+		// 如果是完成通过任务需要给做任务者积分
+		res = await util.updateReceiveRecordStatus(event.receiveId, event.status)
+		await util.addUserScore(event.receiveUserId, event.score)
+	} else {
+		// 其他状态直接更新任务条状态
+		res = await util.updateReceiveRecordStatus(event.receiveId, event.status)
+	}
 	return res
 }
 // 领取条 - 放弃任务

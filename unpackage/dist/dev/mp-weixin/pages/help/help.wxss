@@ -247,4 +247,10 @@
   background: #f0f0f0;
   border-top: 2rpx solid #e0e0e0;
 }
+.textarea-wrapper {
+  border: 0.5px solid #eee;
+  border-radius: 10rpx;
+  padding: 10rpx;
+  margin-bottom: 10rpx;
+}
 

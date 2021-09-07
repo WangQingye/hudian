@@ -29,13 +29,17 @@
 			"description": "信用分",
 			"bsonType": "number"
 		},
-		"status": {
-			"description": "用户状态：激活1/冻结0",
-			"bsonType": "number"
+		"todayRecommendFrom": {
+			"description": "今日被哪个用户推荐"
 		},
-		"finishTaskNum": {
-			"description": "完成任务的数量，用于计算信用分加减",
-			"bsonType": "number"
+		"todayRecommendScore": {
+			"description": "今日通过推荐获得的分数"
+		},
+		"todayWatchAdTime": {
+			"description": "今日看过的广告次数"
+		},
+		"todayFirstLoginTime": {
+			"description": "今日第一次登录时间"
 		}
 	}
 }

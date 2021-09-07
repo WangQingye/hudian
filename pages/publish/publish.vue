@@ -26,11 +26,16 @@
 				</view>
 			</u-form-item>
 			<u-form-item label="任务时限" prop="time">
+				<u-input type="select" :select-open="selectTimeShow" v-model="form.time" placeholder="请选择完成时间限制" @click="selectTimeShow = true"></u-input>
+				<!-- 任务种类选择 -->
+				<u-select mode="single-column" :list="timeLists" v-model="selectTimeShow" @confirm="selectTimeConfirm"></u-select>
+			</u-form-item>
+			<!-- <u-form-item label="任务时限" prop="time">
 				<u-input v-model="form.time" type="number" placeholder="完成时间限制(建议5-10分钟)" />
 				<view slot="right">
 					分钟
 				</view>
-			</u-form-item>
+			</u-form-item> -->
 			<u-form-item label="任务数量" prop="num">
 				<u-input v-model="form.num" type="number" placeholder="发布的任务数量" />
 			</u-form-item>
@@ -46,6 +51,7 @@
 		data() {
 			return {
 				selectShow: false,
+				selectTimeShow: false,
 				taskLists: [{
 						value: '1',
 						label: '淘宝'
@@ -57,6 +63,19 @@
 					{
 						value: '3',
 						label: '自定义'
+					}
+				],
+				timeLists: [{
+						value: '60',
+						label: '1小时'
+					},
+					{
+						value: '180',
+						label: '3小时'
+					},
+					{
+						value: '1440',
+						label: '24小时'
 					}
 				],
 				form: {
@@ -129,6 +148,9 @@
 			selectConfirm(e) {
 				this.form.type = e[0].label
 			},
+			selectTimeConfirm(e) {
+				this.form.time = e[0].label
+			},
 			success(e) {
 				this.form.img = e.tempFilePaths[0]
 			},
@@ -143,14 +165,13 @@
 						} else {
 							this.form.type = this.form.originType || this.form.type
 							this.$util.http('addTask', Object.assign(this.form, {
-								userInfo: this.$util.store.userInfo
+								time: this.form.time.slice(0,-2) * 60
 							})).then(data => {
 								this.$util.showToast('发布成功', '', () => {
 									uni.redirectTo({
 										url:`/pages/task-list/task-list?type=publish`
 									})
 								})
-								this.$util.getUserInfo()
 							})
 						}
 					}
