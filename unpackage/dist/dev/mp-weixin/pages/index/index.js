@@ -256,7 +256,12 @@ var _mixin = __webpack_require__(/*! ../../common/mixin.js */ 50);var taskItem =
     if (options.recommend) {
       this.$util.store.recommendFrom = options.recommend;
     }
-    console.log(this.$util.store);
+    // 有id说明是
+    if (options.taskId) {
+      uni.navigateTo({
+        url: "/pages/task-desc/task-desc?type=".concat('before-receive', "&taskId=", options.taskId) });
+
+    }
   },
   mounted: function mounted() {var _this = this;
     uni.login({

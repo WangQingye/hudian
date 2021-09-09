@@ -86,7 +86,12 @@
 			if (options.recommend) {
 				this.$util.store.recommendFrom = options.recommend
 			}
-			console.log(this.$util.store)
+			// 有id说明是
+			if (options.taskId) {
+				uni.navigateTo({
+					url: `/pages/task-desc/task-desc?type=${'before-receive'}&taskId=${options.taskId}`
+				});
+			}
 		},
 		mounted() {
 			uni.login({

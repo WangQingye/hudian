@@ -67,6 +67,15 @@ export default class util {
 						reject()
 					}
 				})
+				.catch(err => {
+					uni.hideLoading()
+					console.log('err', err)
+					uni.showToast({
+						title: '抱歉出了一点小错误，请稍后重试',
+						duration: 2000,
+						icon: 'none'
+					});
+				})
 		})
 	}
 	async getUserInfo() {
@@ -76,7 +85,7 @@ export default class util {
 		if (ret.result.openId) {
 			this.store.userInfo = ret.result
 			// 说明是刚刚完成第一次登录，给个提示
-			if (new Date().getTime() - ret.result.todayFirstLoginTime < 5000) {
+			if (new Date().getTime() - ret.result.todayFirstLoginTime < 1000) {
 				uni.showToast({
 					title: '每日登录获得：积分+1，信用分+1',
 					duration: 2000,

@@ -2,12 +2,15 @@
 	<view>
 		<view class="task-desc">
 			<u-cell-group>
-				<u-cell-item icon="account-fill" title="领取用户" :arrow="false" :value="receiveData.receiveUserName"></u-cell-item>
-				<u-cell-item icon="integral-fill" title="领取时间" :value="moment(receiveData.receiveTime).format('YYYY-MM-DD HH:mm:ss')" :arrow="false"></u-cell-item>
+				<u-cell-item icon="account-fill" title="领取用户" :arrow="false" :value="receiveData.receiveUserName">
+				</u-cell-item>
+				<u-cell-item icon="integral-fill" title="领取时间"
+					:value="moment(receiveData.receiveTime).format('YYYY-MM-DD HH:mm:ss')" :arrow="false"></u-cell-item>
 				<!-- <u-cell-item icon="integral-fill" title="完成详情" value="已经做完了啊啊啊啊啊啊啊啊" :arrow="false"></u-cell-item> -->
 				<u-cell-item icon="photo-fill" title="任务完成截图" :arrow="false" v-if="receiveData.status !== 'DOING'">
 					<view slot="right-icon">
-						<u-image @click="$util.previewImg([receiveData.submitImg])" width="300rpx" height="300rpx" :src="receiveData.submitImg"></u-image>
+						<u-image @click="$util.previewImg([receiveData.submitImg])" width="300rpx" height="300rpx"
+							:src="receiveData.submitImg"></u-image>
 					</view>
 				</u-cell-item>
 				<u-cell-item icon="clock-fill" title="任务状态" :value="getStatusText()" :arrow="false"></u-cell-item>
@@ -17,9 +20,10 @@
 					<u-button @click="updateReceiveStatus(0)">审核失败</u-button>
 					<text style="font-size: 20rpx; color: #aaa; text-align: center;">请谨慎拒绝，无故拒绝将可能遭到用户申述</text>
 				</view>
-				<u-button type="primary" style="width: 300rpx;" @click="updateReceiveStatus(1)"  v-if="receiveData.status === 'SUBMIT'">审核通过</u-button>
-				<view style="width: 300rpx;" v-if="receiveData.status === 'REJECTED'">
-					<u-button @click="apply">提起申述</u-button>
+				<u-button type="primary" style="width: 300rpx;" @click="updateReceiveStatus(1)"
+					v-if="receiveData.status === 'SUBMIT'">审核通过</u-button>
+				<view v-if="receiveData.status === 'FINISHED'">
+					<u-button type="warning" @click="applyAllege">提起申述</u-button>
 					<text style="font-size: 20rpx; color: #aaa; text-align: center;">截图有问题时可以提起申述，申述成功后可返回积分</text>
 				</view>
 			</view>
@@ -31,27 +35,33 @@
 	import moment from 'moment'
 	export default {
 		onLoad(option) {
-			this.type = option.type
+			this.receiveId = option.receiveId
 		},
 		data() {
 			return {
 				moment,
-				type: 'publish',
 				fileList: [{
 					url: 'https://cdn.uviewui.com/uview/example/fade.jpg'
 				}],
-				receiveData: {}
+				receiveData: {},
+				receiveId: ''
 			};
 		},
 		mounted() {
-			this.receiveData = this.$util.store.nowReceive
+			this.getReceiveData()
 		},
 		methods: {
+			async getReceiveData() {
+				let res = await this.$util.http('getReceiveData', {
+					receiveId: this.receiveId
+				})
+				this.receiveData = res.result
+			},
 			goBack() {
 				uni.navigateBack({
 					delta: 1
 				})
-			},			
+			},
 			getStatusText() {
 				if (this.receiveData.status == 'DOING') {
 					if (new Date().getTime() > this.receiveData.pastTime) {
@@ -60,16 +70,19 @@
 				}
 				return this.$util.taskStatusType[this.receiveData.status]
 			},
-			apply() {
+			async applyAllege() {
 				uni.showModal({
 					content: '是否确认发起申述？',
-					success: (res) => {
+					success: async (res) => {
 						if (res.confirm) {
-						uni.showToast({
-						    title: '发起成功',
-						    duration: 2000,
-							icon: 'none'
-						})}
+							let ret = await this.$util.http('updateReceiveStatus', {
+								receiveId: this.receiveId,
+								status: 'ALLEGE'
+							})
+							this.$util.showToast('操作成功', '', () => {
+								this.getReceiveData()
+							})
+						}
 					}
 				})
 			},
@@ -78,19 +91,19 @@
 				let res
 				if (status == '1') {
 					res = await this.$util.http('updateReceiveStatus', {
-						receiveId: this.receiveData.receiveId,
+						receiveId: this.receiveId,
 						status: 'FINISHED',
 						receiveUserId: this.receiveData.receiveUserId,
 						score: this.receiveData.taskDetail.score
 					})
 					this.$util.showToast('操作成功', '', () => {
-						uni.redirectTo({
-							url: `/pages/task-list/task-list?type=publish`
-						})
+						this.getReceiveData()
 					})
 				} else {
 					// 审核失败
 					let that = this
+					console.log(that.receiveId)
+					console.log(that.receiveData)
 					uni.showModal({
 						title: '确认失败',
 						content: '是否确认任务未被完成？',
@@ -98,13 +111,11 @@
 							if (res.confirm) {
 								// 审核失败
 								res = await that.$util.http('updateReceiveStatus', {
-									receiveId: that.receiveData.receiveId,
+									receiveId: that.receiveId,
 									status: 'REJECTED'
 								})
 								this.$util.showToast('操作成功', '', () => {
-									uni.redirectTo({
-										url: `/pages/task-list/task-list?type=publish`
-									})
+									this.getReceiveData()
 								})
 							}
 						}

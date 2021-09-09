@@ -1,5 +1,10 @@
 const db = uniCloud.database()
 const util = require('./util')
+exports.getTask = async function(event, context) {
+	// 获取任务原型
+	let task = await util.getOneTask(event.taskId)
+	return task
+}
 exports.addTask = async function(event, context) {
 	// 添加任务
 	let task = {
@@ -22,8 +27,27 @@ exports.addTask = async function(event, context) {
 	await util.addUserScore(event.userInfo.openId, -discountScore)
 	return res
 }
+// 擦亮任务
+exports.refreshTask = async function(event, context) {
+	// 获取任务原型
+	let task = await util.getOneTask(event.taskId)
+	let now = new Date().getTime()
+	if (now - task.createTime < 60000) {
+		return {
+			err: '1分钟内只能刷新一次哦，休息一下再来吧'
+		}
+	} else {
+		// 删除任务
+		let res = await db.collection("task").where({
+			_id: event.taskId,
+		}).update({
+			createTime: now
+		})
+		return res
+	}
+}
+// 删除任务
 exports.delTask = async function(event, context) {
-	// 删除任务
 	// 获取任务原型
 	let task = await util.getOneTask(event.taskId)
 	// 查看当前是否有被领取并且状态是DOING或者SUBMIT的任务条
@@ -99,6 +123,11 @@ exports.updateReceiveStatus = async function(event, context) {
 		// 如果是完成通过任务需要给做任务者积分
 		res = await util.updateReceiveRecordStatus(event.receiveId, event.status)
 		await util.addUserScore(event.receiveUserId, event.score)
+	} else if (event.status == 'ALLEGE') {
+		// 如果是申述任务，那么记录一下是谁发起的申述，用于判定是发布者还是领取者
+		res = await util.updateReceiveRecordStatus(event.receiveId, event.status, '', event.userInfo.openId)
+	} else if (event.status == 'ALLEGE-SUCCESSED') {
+		res = await util.updateReceiveRecordStatus(event.receiveId, event.status)
 	} else {
 		// 其他状态直接更新任务条状态
 		res = await util.updateReceiveRecordStatus(event.receiveId, event.status)
@@ -109,4 +138,11 @@ exports.updateReceiveStatus = async function(event, context) {
 exports.giveupTask = async function(event, context) {
 	let res = await util.updateReceiveRecordStatus(event.receiveId, event.status)
 	return res
+}
+exports.getReceiveData = async function(event, context) {
+	let receive = await db.collection("taskReceive").where({
+		_id: event.receiveId,
+	}).get({getOne:true});
+	receive = receive.data[0]
+	return receive || {}
 }

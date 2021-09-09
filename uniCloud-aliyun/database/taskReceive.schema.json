@@ -34,8 +34,10 @@
 			"description": "过期时间"
 		},
 		"status": {
-			"description": "任务状态：已过期:0/进行中:1/已完成:2/申述中:3/申述通过:4/申述失败:5",
-			"bsonType": "number"
+			"description": "任务状态"
+		},
+		"allegeFrom": {
+			"description": "发起申述人"
 		},
 		"desc": {
 			"description": "提交备注"

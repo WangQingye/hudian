@@ -28,7 +28,7 @@ exports.addTaskReceiveRecord = async function(_id, receive) {
 	});
 }
 // 修改领取条状态
-exports.updateReceiveRecordStatus = async function(receiveId, status, submitImg) {
+exports.updateReceiveRecordStatus = async function(receiveId, status, submitImg, allegeFrom) {
 	// 获取原来的领取条
 	let receive = await db.collection("taskReceive").where({
 		_id: receiveId,
@@ -41,6 +41,11 @@ exports.updateReceiveRecordStatus = async function(receiveId, status, submitImg)
 		data.submitImg = submitImg
 		data.submitTime = new Date().getTime() // 上传时间
 	}
+	// 如果是申述任务，那么记录一下是谁发起的申述，用于判定是发布者还是领取者
+	if (status == 'ALLEGE') {
+		data.allegeFrom = allegeFrom
+	}
+	ALLEGE
 	if (status == 'del') {
 		await db.collection("taskReceive").doc(receiveId).remove()
 	} else {

@@ -15,6 +15,7 @@
 			<u-cell-item icon="coupon" title="我领取的" @click="goList('receive')"></u-cell-item>
 			<u-cell-item icon="gift-fill" title="获取积分" @click="goShare"></u-cell-item>
 			<u-cell-item icon="question-circle" title="使用帮助" @click="goHelp"></u-cell-item>
+			<u-cell-item v-if="userInfo.nickName === '云之澜'" icon="server-man" title="申述处理" @click="goList('allege')"></u-cell-item>
 		</u-cell-group>
 	</view>
 </template>

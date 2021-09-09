@@ -132,8 +132,10 @@ var render = function() {
           }
         })
       : null
-  var m1 = _vm.type === "receive" ? _vm.getStatusText() : null
-  var m2 = _vm.type === "receive" ? _vm.getStatusText() : null
+  var m1 =
+    _vm.type === "receive" || _vm.type === "allege" ? _vm.getStatusText() : null
+  var m2 =
+    _vm.type === "receive" || _vm.type === "allege" ? _vm.getStatusText() : null
   _vm.$mp.data = Object.assign(
     {},
     {
@@ -227,7 +229,7 @@ var _moment = _interopRequireDefault(__webpack_require__(/*! moment */ 59));func
 //
 //
 //
-var _default = { props: ['type', 'data'], data: function data() {return { moment: _moment.default, thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' };}, mounted: function mounted() {}, methods: { goDesc: function goDesc() {this.$util.store.nowTask = this.data;uni.navigateTo({ url: "/pages/task-desc/task-desc?type=".concat(this.type) });}, goFinish: function goFinish(receive) {if (this.getStatusText(receive) === '已超时') return;this.$util.store.nowReceive = receive;uni.navigateTo({ url: "/pages/finish-task/finish-task" });},
+var _default = { props: ['type', 'data'], data: function data() {return { moment: _moment.default, thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' };}, mounted: function mounted() {}, methods: { goDesc: function goDesc() {console.log(this.data);this.$util.store.nowTask = this.data;uni.navigateTo({ url: "/pages/task-desc/task-desc?type=".concat(this.type) });}, goFinish: function goFinish(receive) {if (this.getStatusText(receive) === '已超时') return;uni.navigateTo({ url: "/pages/finish-task/finish-task?receiveId=".concat(receive.receiveId) });},
     getStatusText: function getStatusText(receive) {
       var data = receive || this.data;
       if (data.status == 'DOING') {

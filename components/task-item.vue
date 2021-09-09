@@ -15,8 +15,8 @@
 					</u-collapse-item>
 				</u-collapse>
 				<u-icon v-if="type !== 'publish'" name="gift" size="34" color="" :label="`${data.score || data.taskDetail.score}积分`"></u-icon>
-				<text v-if="type !== 'publish' && type !== 'receive'" style="float: right;">{{`剩余${data.restNum}次`}}</text>
-				<text v-if="type === 'receive'" style="float: right;"><text :style="{color:$util.statusColors[getStatusText()]}">{{getStatusText()}}</text></text>
+				<text v-if="type !== 'publish' && type !== 'receive' && type !== 'allege' " style="float: right;">{{`剩余${data.restNum}次`}}</text>
+				<text v-if="type === 'receive' || type === 'allege'" style="float: right;"><text :style="{color:$util.statusColors[getStatusText()]}">{{getStatusText()}}</text></text>
 			</view>
 		</u-card>
 	</view>
@@ -36,6 +36,7 @@
 		},
 		methods: {
 			goDesc() {
+				console.log(this.data)
 				this.$util.store.nowTask = this.data
 				uni.navigateTo({
 					url: `/pages/task-desc/task-desc?type=${this.type}`
@@ -43,9 +44,8 @@
 			},
 			goFinish(receive) {
 				if (this.getStatusText(receive) === '已超时') return
-				this.$util.store.nowReceive = receive
 				uni.navigateTo({
-					url: `/pages/finish-task/finish-task`
+					url: `/pages/finish-task/finish-task?receiveId=${receive.receiveId}`
 				});
 			},
 			getStatusText(receive) {

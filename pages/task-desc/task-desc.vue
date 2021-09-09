@@ -6,8 +6,10 @@
 				</u-cell-item>
 				<u-cell-item icon="order" title="任务平台" :arrow="false"
 					:value="taskData.type || taskData.taskDetail.type"></u-cell-item>
-				<u-cell-item v-if="type !== 'receive'" icon="integral" title="剩余次数"
+				<u-cell-item v-if="type !== 'receive' && type !== 'allege'" icon="integral" title="剩余次数"
 					:value="`${taskData.restNum}/${taskData.totalNum}`" :arrow="false"></u-cell-item>
+				<u-cell-item v-if="type == 'allege'" icon="account" title="申述人" :value="getAllegeText()" :arrow="false">
+				</u-cell-item>
 				<u-cell-item icon="attach" title="任务链接" :value="taskData.link || taskData.taskDetail.link"
 					:arrow="false">
 					<u-button slot="right-icon" size="mini" style="margin-left: 20rpx;" type="primary" @click="copy">
@@ -54,11 +56,26 @@
 				<u-button style="width: 300rpx;" type="primary" v-if="type==='before-receive'"
 					@click="showReceiveConfirm = true">领取</u-button>
 				<!-- 我的发布点进进入 -->
-				<u-button style="width: 230rpx;" type="warning" v-if="type==='publish'" @click="clickDelete">删除任务
+				<view style="width: 230rpx;" v-if="type==='publish'">
+					<u-button type="primary" @click="refreshTask">擦亮
+					</u-button>
+					<text style="font-size: 20rpx; color: #aaa; text-align: center;">擦亮后可将任务推荐靠前</text>
+				</view>
+				<view style="width: 230rpx;" v-if="type==='publish'">
+					<u-button type="success" v-if="type==='publish'" open-type="share">分享
+					</u-button>
+					<text style="font-size: 20rpx; color: #aaa; text-align: center;">将任务分享给好友，更快被完成</text>
+				</view>
+				<u-button style="width: 200rpx;" type="warning" v-if="type==='publish'" @click="clickDelete">删除
 				</u-button>
-				<!-- <u-button style="width: 230rpx;" type="primary" v-if="type==='publish'" @click="goEdit">修改任务</u-button> -->
-				<u-button style="width: 230rpx;" type="success" v-if="type==='publish'" open-type="share">分享任务
+				<u-button style="width: 200rpx;" type="warning" v-if="type==='allege'" @click="allegeConfirm(false)">申述失败
 				</u-button>
+				<u-button style="width: 200rpx;" type="success" v-if="type==='allege'" @click="allegeConfirm(true)">申述通过
+				</u-button>
+			</view>
+			<view v-if="taskData.status === 'REJECTED'">
+				<u-button type="warning" @click="applyAllege">提起申述</u-button>
+				<text style="font-size: 20rpx; color: #aaa; text-align: center;">若您觉得任务审批有问题，可以发起申述，申述成功后可返回积分</text>
 			</view>
 		</view>
 		<!-- 领取任务提示 -->
@@ -87,18 +104,22 @@
 		onShareAppMessage() {
 			return {
 				title: '快来帮我完成任务！',
-				path: '/pages/test/test?id=123',
+				path: `/pages/index/index?taskId=${this.taskData._id}`,
 				imageUrl: '../../static/share.png'
 			}
 		},
-		onLoad(option) {
-			this.type = option.type
+		async onLoad(options) {
+			console.log(options)
+			if (options.taskId) {
+				let res = await this.$util.http('getTask', {
+					taskId: options.taskId
+				})
+				this.taskData = res.result
+			} else {
+				this.taskData = this.$util.store.nowTask
+			}
+			this.type = options.type
 			// 这里注意一下任务数据有可能是任务数据也有可能是领取条数据
-			this.taskData = this.$util.store.nowTask
-			// // 如果是自己的任务那么转换界面
-			// if (this.taskData.creator === this.$util.store.userInfo.openId) {
-			// 	this.type = 'publish'
-			// }
 			// 如果是提交任务界面，看一下有没有已经上传的图片
 			if (this.taskData.submitImg) {
 				this.imageValue.push({
@@ -107,7 +128,6 @@
 					"url": this.taskData.submitImg
 				})
 			}
-			console.log(this.taskData)
 			this.getTimeText()
 		},
 		onUnload() {
@@ -178,26 +198,6 @@
 					})
 				})
 			},
-			// 删除任务 -- 发布者
-			clickDelete() {
-				let that = this
-				uni.showModal({
-					title: '确认删除',
-					content: '是否确认删除，删除后无法恢复',
-					success: async (res) => {
-						if (res.confirm) {
-							let res = await that.$util.http('delTask', {
-								taskId: this.taskData._id
-							})
-							that.$util.showToast('删除成功', '', () => {
-								uni.switchTab({
-									url: `/pages/my-info/my-info`
-								})
-							})
-						}
-					}
-				});
-			},
 			// 放弃任务 -- 领取者
 			clickGiveup() {
 				let that = this
@@ -221,21 +221,32 @@
 					}
 				});
 			},
-			// 修改任务 -- 发布者
-			goEdit() {
+			// 擦亮任务 -- 发布者
+			async refreshTask() {
+				let res = await this.$util.http('refreshTask', {
+					taskId: this.taskData._id
+				})
+				this.$util.showToast('擦亮成功，任务排名靠前啦')
+			},
+			// 删除任务 -- 发布者
+			clickDelete() {
+				let that = this
 				uni.showModal({
-					title: '确认修改',
-					content: '请先确认您的任务当前没有被人领取，否则无法修改',
-					confirmText: '去修改',
-					success: (res) => {
+					title: '确认删除',
+					content: '是否确认删除，删除后无法恢复',
+					success: async (res) => {
 						if (res.confirm) {
-							uni.navigateTo({
-								url: `/pages/publish/publish`
+							let res = await that.$util.http('delTask', {
+								taskId: that.taskData._id
+							})
+							that.$util.showToast('删除成功', '', () => {
+								uni.switchTab({
+									url: `/pages/my-info/my-info`
+								})
 							})
 						}
 					}
 				});
-
 			},
 			getTimeText() {
 				let textArr = this.$util.taskStatusType
@@ -259,7 +270,44 @@
 			},
 			deleteImg(e) {
 				this.imageValue = []
-			}
+			},
+			getAllegeText() {
+				if (this.taskData.allegeFrom === this.taskData.receiveUserId) {
+					return '领取人'
+				}
+				if (this.taskData.allegeFrom === this.taskData.taskDetail.creator) {
+					return '发布人'
+				}
+			},
+			async allegeConfirm(success) {
+				await this.$util.http('updateReceiveStatus', {
+					receiveId: this.taskData._id, 
+					status: success ? 'ALLEGE-SUCCESSED' : 'ALLEGE-FAILED'
+				})
+				this.$util.showToast('操作成功', '', () => {
+					uni.redirectTo({
+						url: `/pages/task-list/task-list?type=allege`
+					})
+				})
+			},
+			async applyAllege() {
+				uni.showModal({
+					content: '是否确认发起申述？',
+					success: async (res) => {
+						if (res.confirm) {
+							let ret = await this.$util.http('updateReceiveStatus', {
+								receiveId: this.taskData._id,
+								status: 'ALLEGE'
+							})
+							this.$util.showToast('操作成功，请等待管理员审批', '', () => {
+								uni.switchTab({
+									url: `/pages/my-info/my-info`
+								})
+							})
+						}
+					}
+				})
+			},
 		}
 	}
 </script>

@@ -8230,6 +8230,15 @@ function normalizeComponent (
 
             reject();
           }
+        }).
+        catch(function (err) {
+          uni.hideLoading();
+          console.log('err', err);
+          uni.showToast({
+            title: '抱歉出了一点小错误，请稍后重试',
+            duration: 2000,
+            icon: 'none' });
+
         });
       });
     } }, { key: "getUserInfo", value: function () {var _getUserInfo = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var ret;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
@@ -8240,7 +8249,7 @@ function normalizeComponent (
                 ret.result.openId) {_context.next = 9;break;}
                 this.store.userInfo = ret.result;
                 // 说明是刚刚完成第一次登录，给个提示
-                if (new Date().getTime() - ret.result.todayFirstLoginTime < 5000) {
+                if (new Date().getTime() - ret.result.todayFirstLoginTime < 1000) {
                   uni.showToast({
                     title: '每日登录获得：积分+1，信用分+1',
                     duration: 2000,

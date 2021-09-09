@@ -208,25 +208,35 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
 var _moment = _interopRequireDefault(__webpack_require__(/*! moment */ 59));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
 {
   onLoad: function onLoad(option) {
-    this.type = option.type;
+    this.receiveId = option.receiveId;
   },
   data: function data() {
     return {
       moment: _moment.default,
-      type: 'publish',
       fileList: [{
         url: 'https://cdn.uviewui.com/uview/example/fade.jpg' }],
 
-      receiveData: {} };
+      receiveData: {},
+      receiveId: '' };
 
   },
   mounted: function mounted() {
-    this.receiveData = this.$util.store.nowReceive;
+    this.getReceiveData();
   },
   methods: {
+    getReceiveData: function getReceiveData() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
+                  _this.$util.http('getReceiveData', {
+                    receiveId: _this.receiveId }));case 2:res = _context.sent;
+
+                _this.receiveData = res.result;case 4:case "end":return _context.stop();}}}, _callee);}))();
+    },
     goBack: function goBack() {
       uni.navigateBack({
         delta: 1 });
@@ -240,57 +250,58 @@ var _moment = _interopRequireDefault(__webpack_require__(/*! moment */ 59));func
       }
       return this.$util.taskStatusType[this.receiveData.status];
     },
-    apply: function apply() {
-      uni.showModal({
-        content: '是否确认发起申述？',
-        success: function success(res) {
-          if (res.confirm) {
-            uni.showToast({
-              title: '发起成功',
-              duration: 2000,
-              icon: 'none' });
-          }
-        } });
+    applyAllege: function applyAllege() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
+                uni.showModal({
+                  content: '是否确认发起申述？',
+                  success: function () {var _success = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2(res) {var ret;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:if (!
+                              res.confirm) {_context2.next = 5;break;}_context2.next = 3;return (
+                                _this2.$util.http('updateReceiveStatus', {
+                                  receiveId: _this2.receiveId,
+                                  status: 'ALLEGE' }));case 3:ret = _context2.sent;
+
+                              _this2.$util.showToast('操作成功', '', function () {
+                                _this2.getReceiveData();
+                              });case 5:case "end":return _context2.stop();}}}, _callee2);}));function success(_x) {return _success.apply(this, arguments);}return success;}() });case 1:case "end":return _context3.stop();}}}, _callee3);}))();
+
+
 
     },
-    updateReceiveStatus: function updateReceiveStatus(status) {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var res, that;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:if (!(
+    updateReceiveStatus: function updateReceiveStatus(status) {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee5() {var res, that;return _regenerator.default.wrap(function _callee5$(_context5) {while (1) {switch (_context5.prev = _context5.next) {case 0:if (!(
 
 
-                status == '1')) {_context2.next = 7;break;}_context2.next = 3;return (
-                  _this.$util.http('updateReceiveStatus', {
-                    receiveId: _this.receiveData.receiveId,
+                status == '1')) {_context5.next = 7;break;}_context5.next = 3;return (
+                  _this3.$util.http('updateReceiveStatus', {
+                    receiveId: _this3.receiveId,
                     status: 'FINISHED',
-                    receiveUserId: _this.receiveData.receiveUserId,
-                    score: _this.receiveData.taskDetail.score }));case 3:res = _context2.sent;
+                    receiveUserId: _this3.receiveData.receiveUserId,
+                    score: _this3.receiveData.taskDetail.score }));case 3:res = _context5.sent;
 
-                _this.$util.showToast('操作成功', '', function () {
-                  uni.redirectTo({
-                    url: "/pages/task-list/task-list?type=publish" });
-
-                });_context2.next = 9;break;case 7:
+                _this3.$util.showToast('操作成功', '', function () {
+                  _this3.getReceiveData();
+                });_context5.next = 11;break;case 7:
 
                 // 审核失败
-                that = _this;
+                that = _this3;
+                console.log(that.receiveId);
+                console.log(that.receiveData);
                 uni.showModal({
                   title: '确认失败',
                   content: '是否确认任务未被完成？',
-                  success: function () {var _success = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(res) {return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:if (!
-                              res.confirm) {_context.next = 5;break;}_context.next = 3;return (
+                  success: function () {var _success2 = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4(res) {return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:if (!
+                              res.confirm) {_context4.next = 5;break;}_context4.next = 3;return (
 
                                 that.$util.http('updateReceiveStatus', {
-                                  receiveId: that.receiveData.receiveId,
-                                  status: 'REJECTED' }));case 3:res = _context.sent;
+                                  receiveId: that.receiveId,
+                                  status: 'REJECTED' }));case 3:res = _context4.sent;
 
-                              _this.$util.showToast('操作成功', '', function () {
-                                uni.redirectTo({
-                                  url: "/pages/task-list/task-list?type=publish" });
-
-                              });case 5:case "end":return _context.stop();}}}, _callee);}));function success(_x) {return _success.apply(this, arguments);}return success;}() });case 9:
+                              _this3.$util.showToast('操作成功', '', function () {
+                                _this3.getReceiveData();
+                              });case 5:case "end":return _context4.stop();}}}, _callee4);}));function success(_x2) {return _success2.apply(this, arguments);}return success;}() });case 11:
 
 
 
 
-                console.log(res);case 10:case "end":return _context2.stop();}}}, _callee2);}))();
+                console.log(res);case 12:case "end":return _context5.stop();}}}, _callee5);}))();
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

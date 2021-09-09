@@ -19,9 +19,13 @@
 		onLoad(option) {
 			this.type = option.type
 			this.options.type = option.type
-			console.log(this.type)
+			let title = {
+				publish: '我发布的',
+				receive: '我领取的',
+				allege: '申述列表'
+			}
 			uni.setNavigationBarTitle({
-				title: this.type === 'publish' ? '我发布的' : '我领取的'
+				title: title[this.type]
 			});
 		},
 		data() { 
@@ -37,7 +41,7 @@
 			collection() {
 				if (this.type === 'publish') {
 					return `task`
-				} else if (this.type === 'receive') {
+				} else if (this.type === 'receive' || this.type === 'allege') {
 					return `taskReceive`
 				}
 			},
@@ -47,6 +51,8 @@
 					return `creator == '${this.$util.store.userInfo.openId}'`
 				} else if (this.type === 'receive') {
 					return `receiveUserId == '${this.$util.store.userInfo.openId}'`
+				} else if (this.type === 'allege') {
+					return `status == 'ALLEGE'`
 				}
 			},
 			sort() {

@@ -164,6 +164,8 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var m0 = _vm.taskData._id && _vm.type == "allege" ? _vm.getAllegeText() : null
+
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
       return _vm.$util.previewImg([
@@ -185,6 +187,15 @@ var render = function() {
       _vm.showReceiveConfirm = true
     }
   }
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        m0: m0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -302,33 +313,53 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var _moment = _interopRequireDefault(__webpack_require__(/*! moment */ 59));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
 {
   onShareAppMessage: function onShareAppMessage() {
     return {
       title: '快来帮我完成任务！',
-      path: '/pages/test/test?id=123',
+      path: "/pages/index/index?taskId=".concat(this.taskData._id),
       imageUrl: '../../static/share.png' };
 
   },
-  onLoad: function onLoad(option) {
-    this.type = option.type;
-    // 这里注意一下任务数据有可能是任务数据也有可能是领取条数据
-    this.taskData = this.$util.store.nowTask;
-    // // 如果是自己的任务那么转换界面
-    // if (this.taskData.creator === this.$util.store.userInfo.openId) {
-    // 	this.type = 'publish'
-    // }
-    // 如果是提交任务界面，看一下有没有已经上传的图片
-    if (this.taskData.submitImg) {
-      this.imageValue.push({
-        "name": "submitImg",
-        "extname": this.taskData.submitImg.split('.').pop(),
-        "url": this.taskData.submitImg });
+  onLoad: function onLoad(options) {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+              console.log(options);if (!
+              options.taskId) {_context.next = 8;break;}_context.next = 4;return (
+                _this.$util.http('getTask', {
+                  taskId: options.taskId }));case 4:res = _context.sent;
 
-    }
-    console.log(this.taskData);
-    this.getTimeText();
+              _this.taskData = res.result;_context.next = 9;break;case 8:
+
+              _this.taskData = _this.$util.store.nowTask;case 9:
+
+              _this.type = options.type;
+              // 这里注意一下任务数据有可能是任务数据也有可能是领取条数据
+              // 如果是提交任务界面，看一下有没有已经上传的图片
+              if (_this.taskData.submitImg) {
+                _this.imageValue.push({
+                  "name": "submitImg",
+                  "extname": _this.taskData.submitImg.split('.').pop(),
+                  "url": _this.taskData.submitImg });
+
+              }
+              _this.getTimeText();case 12:case "end":return _context.stop();}}}, _callee);}))();
   },
   onUnload: function onUnload() {
     clearInterval(this.countTimer);
@@ -361,62 +392,42 @@ var _moment = _interopRequireDefault(__webpack_require__(/*! moment */ 59));func
 
     },
     // 领取任务 -- 领取者
-    confirmReceive: function confirmReceive() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
-                if (!_this.$util.store.userInfo.nickName) {
+    confirmReceive: function confirmReceive() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var res;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
+                if (!_this2.$util.store.userInfo.nickName) {
                   uni.switchTab({
                     url: "/pages/my-info/my-info" });
 
                 }if (!(
-                _this.$util.store.userInfo.openId == _this.taskData.creator)) {_context.next = 4;break;}
-                _this.$util.showToast('不能领取自己发布的任务哦');return _context.abrupt("return");case 4:_context.next = 6;return (
+                _this2.$util.store.userInfo.openId == _this2.taskData.creator)) {_context2.next = 4;break;}
+                _this2.$util.showToast('不能领取自己发布的任务哦');return _context2.abrupt("return");case 4:_context2.next = 6;return (
 
 
-                  _this.$util.http('receiveTask', {
-                    taskData: _this.taskData }));case 6:res = _context.sent;
+                  _this2.$util.http('receiveTask', {
+                    taskData: _this2.taskData }));case 6:res = _context2.sent;
 
-                _this.$util.showToast('领取成功', '', function () {
+                _this2.$util.showToast('领取成功', '', function () {
                   uni.redirectTo({
                     url: "/pages/task-list/task-list?type=receive" });
 
-                });case 8:case "end":return _context.stop();}}}, _callee);}))();
+                });case 8:case "end":return _context2.stop();}}}, _callee2);}))();
     },
     // 提交任务 -- 领取者
-    confirmSubmit: function confirmSubmit() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:if (
-                _this2.imageValue[0]) {_context2.next = 3;break;}
-                _this2.$util.showToast('请上传任务截图');return _context2.abrupt("return");case 3:_context2.next = 5;return (
+    confirmSubmit: function confirmSubmit() {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:if (
+                _this3.imageValue[0]) {_context3.next = 3;break;}
+                _this3.$util.showToast('请上传任务截图');return _context3.abrupt("return");case 3:_context3.next = 5;return (
 
 
-                  _this2.$util.http('updateReceiveStatus', {
-                    receiveId: _this2.taskData._id,
+                  _this3.$util.http('updateReceiveStatus', {
+                    receiveId: _this3.taskData._id,
                     status: 'SUBMIT',
-                    submitImg: _this2.imageValue[0].url,
-                    score: _this2.taskData.taskDetail.score }));case 5:
+                    submitImg: _this3.imageValue[0].url,
+                    score: _this3.taskData.taskDetail.score }));case 5:
 
-                _this2.$util.showToast('提交成功', '', function () {
+                _this3.$util.showToast('提交成功', '', function () {
                   uni.switchTab({
                     url: "/pages/my-info/my-info" });
 
-                });case 6:case "end":return _context2.stop();}}}, _callee2);}))();
-    },
-    // 删除任务 -- 发布者
-    clickDelete: function clickDelete() {var _this3 = this;
-      var that = this;
-      uni.showModal({
-        title: '确认删除',
-        content: '是否确认删除，删除后无法恢复',
-        success: function () {var _success = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3(res) {var _res;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:if (!
-                    res.confirm) {_context3.next = 5;break;}_context3.next = 3;return (
-                      that.$util.http('delTask', {
-                        taskId: _this3.taskData._id }));case 3:_res = _context3.sent;
-
-                    that.$util.showToast('删除成功', '', function () {
-                      uni.switchTab({
-                        url: "/pages/my-info/my-info" });
-
-                    });case 5:case "end":return _context3.stop();}}}, _callee3);}));function success(_x) {return _success.apply(this, arguments);}return success;}() });
-
-
-
+                });case 6:case "end":return _context3.stop();}}}, _callee3);}))();
     },
     // 放弃任务 -- 领取者
     clickGiveup: function clickGiveup() {
@@ -424,7 +435,7 @@ var _moment = _interopRequireDefault(__webpack_require__(/*! moment */ 59));func
       uni.showModal({
         title: '确认放弃',
         content: '是否确认放弃，放弃后无法恢复',
-        success: function () {var _success2 = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4(res) {return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:if (!
+        success: function () {var _success = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4(res) {return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:if (!
                     res.confirm) {_context4.next = 6;break;}_context4.next = 3;return (
                       that.$util.http('giveupTask', {
                         receiveId: that.taskData._id,
@@ -437,40 +448,51 @@ var _moment = _interopRequireDefault(__webpack_require__(/*! moment */ 59));func
                     });_context4.next = 7;break;case 6:
                     if (res.cancel) {
                       console.log('用户点击取消');
-                    }case 7:case "end":return _context4.stop();}}}, _callee4);}));function success(_x2) {return _success2.apply(this, arguments);}return success;}() });
+                    }case 7:case "end":return _context4.stop();}}}, _callee4);}));function success(_x) {return _success.apply(this, arguments);}return success;}() });
 
 
     },
-    // 修改任务 -- 发布者
-    goEdit: function goEdit() {
+    // 擦亮任务 -- 发布者
+    refreshTask: function refreshTask() {var _this4 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee5() {var res;return _regenerator.default.wrap(function _callee5$(_context5) {while (1) {switch (_context5.prev = _context5.next) {case 0:_context5.next = 2;return (
+                  _this4.$util.http('refreshTask', {
+                    taskId: _this4.taskData._id }));case 2:res = _context5.sent;
+
+                _this4.$util.showToast('擦亮成功，任务排名靠前啦');case 4:case "end":return _context5.stop();}}}, _callee5);}))();
+    },
+    // 删除任务 -- 发布者
+    clickDelete: function clickDelete() {
+      var that = this;
       uni.showModal({
-        title: '确认修改',
-        content: '请先确认您的任务当前没有被人领取，否则无法修改',
-        confirmText: '去修改',
-        success: function success(res) {
-          if (res.confirm) {
-            uni.navigateTo({
-              url: "/pages/publish/publish" });
+        title: '确认删除',
+        content: '是否确认删除，删除后无法恢复',
+        success: function () {var _success2 = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee6(res) {var _res;return _regenerator.default.wrap(function _callee6$(_context6) {while (1) {switch (_context6.prev = _context6.next) {case 0:if (!
+                    res.confirm) {_context6.next = 5;break;}_context6.next = 3;return (
+                      that.$util.http('delTask', {
+                        taskId: that.taskData._id }));case 3:_res = _context6.sent;
 
-          }
-        } });
+                    that.$util.showToast('删除成功', '', function () {
+                      uni.switchTab({
+                        url: "/pages/my-info/my-info" });
+
+                    });case 5:case "end":return _context6.stop();}}}, _callee6);}));function success(_x2) {return _success2.apply(this, arguments);}return success;}() });
+
 
 
     },
-    getTimeText: function getTimeText() {var _this4 = this;
+    getTimeText: function getTimeText() {var _this5 = this;
       var textArr = this.$util.taskStatusType;
       if (this.taskData.status == 'DOING') {
         this.countTimer = setInterval(function () {
           var start = (0, _moment.default)(new Date()); //获取开始时间
-          var end = (0, _moment.default)(new Date(_this4.taskData.pastTime)); //结束时间
+          var end = (0, _moment.default)(new Date(_this5.taskData.pastTime)); //结束时间
           var diff = end.diff(start); //时间差
           if (diff < 0) {
-            _this4.countTime = '已超时';
-            _this4.taskData.status = 0;
-            clearInterval(_this4.countTimer);
+            _this5.countTime = '已超时';
+            _this5.taskData.status = 0;
+            clearInterval(_this5.countTimer);
             return;
           }
-          _this4.countTime = "\u8FDB\u884C\u4E2D\uFF0C\u5269\u4F59\u65F6\u95F4\uFF1A".concat(
+          _this5.countTime = "\u8FDB\u884C\u4E2D\uFF0C\u5269\u4F59\u65F6\u95F4\uFF1A".concat(
           _moment.default.duration(diff).days() ? _moment.default.duration(diff).days() + ' 天 ' : '').concat(_moment.default.duration(diff).hours() ? _moment.default.duration(diff).hours() + ' 小时 ' : '').concat(_moment.default.duration(diff).minutes() ? _moment.default.duration(diff).minutes() + ' 分 ' : '').concat(_moment.default.duration(diff).seconds() ? _moment.default.duration(diff).seconds() + ' 秒' : ''); //格式化为需要的格式 这里是时分秒
         }, 1000);
       } else {
@@ -479,6 +501,43 @@ var _moment = _interopRequireDefault(__webpack_require__(/*! moment */ 59));func
     },
     deleteImg: function deleteImg(e) {
       this.imageValue = [];
+    },
+    getAllegeText: function getAllegeText() {
+      if (this.taskData.allegeFrom === this.taskData.receiveUserId) {
+        return '领取人';
+      }
+      if (this.taskData.allegeFrom === this.taskData.taskDetail.creator) {
+        return '发布人';
+      }
+    },
+    allegeConfirm: function allegeConfirm(success) {var _this6 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee7() {return _regenerator.default.wrap(function _callee7$(_context7) {while (1) {switch (_context7.prev = _context7.next) {case 0:_context7.next = 2;return (
+                  _this6.$util.http('updateReceiveStatus', {
+                    receiveId: _this6.taskData._id,
+                    status: success ? 'ALLEGE-SUCCESSED' : 'ALLEGE-FAILED' }));case 2:
+
+                _this6.$util.showToast('操作成功', '', function () {
+                  uni.redirectTo({
+                    url: "/pages/task-list/task-list?type=allege" });
+
+                });case 3:case "end":return _context7.stop();}}}, _callee7);}))();
+    },
+    applyAllege: function applyAllege() {var _this7 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee9() {return _regenerator.default.wrap(function _callee9$(_context9) {while (1) {switch (_context9.prev = _context9.next) {case 0:
+                uni.showModal({
+                  content: '是否确认发起申述？',
+                  success: function () {var _success3 = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee8(res) {var ret;return _regenerator.default.wrap(function _callee8$(_context8) {while (1) {switch (_context8.prev = _context8.next) {case 0:if (!
+                              res.confirm) {_context8.next = 5;break;}_context8.next = 3;return (
+                                _this7.$util.http('updateReceiveStatus', {
+                                  receiveId: _this7.taskData._id,
+                                  status: 'ALLEGE' }));case 3:ret = _context8.sent;
+
+                              _this7.$util.showToast('操作成功，请等待管理员审批', '', function () {
+                                uni.switchTab({
+                                  url: "/pages/my-info/my-info" });
+
+                              });case 5:case "end":return _context8.stop();}}}, _callee8);}));function success(_x3) {return _success3.apply(this, arguments);}return success;}() });case 1:case "end":return _context9.stop();}}}, _callee9);}))();
+
+
+
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
