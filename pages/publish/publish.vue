@@ -54,11 +54,23 @@
 				selectTimeShow: false,
 				taskLists: [{
 						value: '1',
-						label: '淘宝'
+						label: '拼多多'
 					},
 					{
 						value: '2',
-						label: '拼多多'
+						label: '淘宝'
+					},
+					{
+						value: '3',
+						label: '小程序'
+					},
+					{
+						value: '4',
+						label: '抖音'
+					},
+					{
+						value: '5',
+						label: '快手'
 					},
 					{
 						value: '3',
@@ -160,8 +172,9 @@
 						if (this.$util.store.userInfo.score < (this.form.score * this.form.num)) {
 							this.$util.showToast('积分不足，您当前的可用积分为：' + this.$util.store.userInfo.score + '，快去做任务吧！')
 							return
-						} else if (this.$util.store.userInfo.status == 0) {
-							this.$util.showToast('您的账号已被冻结')
+						} else if (this.$util.store.userInfo.credit < 60) {
+							this.$util.showToast('您的信用分过低，不能发布任务哦，请先通过每日登录获取信用分吧')
+							return
 						} else {
 							this.form.type = this.form.originType || this.form.type
 							this.$util.http('addTask', Object.assign(this.form, {

@@ -22,7 +22,7 @@
 				</view>
 				<u-button type="primary" style="width: 300rpx;" @click="updateReceiveStatus(1)"
 					v-if="receiveData.status === 'SUBMIT'">审核通过</u-button>
-				<view v-if="receiveData.status === 'FINISHED'">
+				<view v-if="receiveData.status === 'FINISHED'" style="width: 325rpx; margin: 0 25rpx;">
 					<u-button type="warning" @click="applyAllege">提起申述</u-button>
 					<text style="font-size: 20rpx; color: #aaa; text-align: center;">截图有问题时可以提起申述，申述成功后可返回积分</text>
 				</view>
@@ -72,7 +72,7 @@
 			},
 			async applyAllege() {
 				uni.showModal({
-					content: '是否确认发起申述？',
+					content: '请谨慎发起申述，若申述失败您将扣除信用分，是否确认？',
 					success: async (res) => {
 						if (res.confirm) {
 							let ret = await this.$util.http('updateReceiveStatus', {

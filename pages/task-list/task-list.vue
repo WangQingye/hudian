@@ -1,7 +1,7 @@
 <template>
 	<view>
-		<taskItem v-for="task in list" :key="task._id" :data="task" :type="type"></taskItem>
-		<unicloud-db v-if="collection" v-slot:default="{data, loading, error, options}" :options="options" :collection="collection" :where="typeSearch" :orderby="sort">
+		<unicloud-db v-if="collection" v-slot:default="{data, loading, error, options}" :options="options"
+			:collection="collection" :where="typeSearch" :orderby="sort">
 			<view>
 				<task-item v-for="i in data" :type="options.type" :data="i"></task-item>
 			</view>
@@ -28,7 +28,7 @@
 				title: title[this.type]
 			});
 		},
-		data() { 
+		data() {
 			return {
 				type: '',
 				list: [],
@@ -56,7 +56,11 @@
 				}
 			},
 			sort() {
-				return 'receiveTime desc'
+				if (this.type === 'publish') {
+					return 'createTime desc'
+				} else {
+					return 'receiveTime desc'
+				}
 			}
 		}
 

@@ -95,23 +95,23 @@ __webpack_require__.r(__webpack_exports__);
 var components
 try {
   components = {
-    uButton: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 273))
-    },
     uDropdown: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-dropdown/u-dropdown */ "uview-ui/components/u-dropdown/u-dropdown").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-dropdown/u-dropdown.vue */ 252))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-dropdown/u-dropdown */ "uview-ui/components/u-dropdown/u-dropdown").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-dropdown/u-dropdown.vue */ 259))
     },
     uDropdownItem: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-dropdown-item/u-dropdown-item */ "uview-ui/components/u-dropdown-item/u-dropdown-item").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-dropdown-item/u-dropdown-item.vue */ 259))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-dropdown-item/u-dropdown-item */ "uview-ui/components/u-dropdown-item/u-dropdown-item").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-dropdown-item/u-dropdown-item.vue */ 266))
     },
     uField: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-field/u-field */ "uview-ui/components/u-field/u-field").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-field/u-field.vue */ 266))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-field/u-field */ "uview-ui/components/u-field/u-field").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-field/u-field.vue */ 273))
+    },
+    uButton: function() {
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 280))
     },
     unicloudDb: function() {
-      return Promise.all(/*! import() | node-modules/@dcloudio/uni-cli-shared/components/unicloud-db */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/@dcloudio/uni-cli-shared/components/unicloud-db")]).then(__webpack_require__.bind(null, /*! @dcloudio/uni-cli-shared/components/unicloud-db.vue */ 280))
+      return Promise.all(/*! import() | node-modules/@dcloudio/uni-cli-shared/components/unicloud-db */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/@dcloudio/uni-cli-shared/components/unicloud-db")]).then(__webpack_require__.bind(null, /*! @dcloudio/uni-cli-shared/components/unicloud-db.vue */ 287))
     },
     uLoadmore: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-loadmore/u-loadmore */ "uview-ui/components/u-loadmore/u-loadmore").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-loadmore/u-loadmore.vue */ 291))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-loadmore/u-loadmore */ "uview-ui/components/u-loadmore/u-loadmore").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-loadmore/u-loadmore.vue */ 298))
     }
   }
 } catch (e) {
@@ -205,7 +205,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _mixin = __webpack_require__(/*! ../../common/mixin.js */ 50);var taskItem = function taskItem() {Promise.all(/*! require.ensure | components/task-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/task-item")]).then((function () {return resolve(__webpack_require__(/*! ../../components/task-item.vue */ 298));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+var _mixin = __webpack_require__(/*! ../../common/mixin.js */ 50);var taskItem = function taskItem() {Promise.all(/*! require.ensure | components/task-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/task-item")]).then((function () {return resolve(__webpack_require__(/*! ../../components/task-item.vue */ 305));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 {
   mixins: [_mixin.pullDownMixin],
   components: {

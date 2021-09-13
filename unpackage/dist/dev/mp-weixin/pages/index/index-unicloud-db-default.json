@@ -2,10 +2,10 @@
   "component": true,
   "usingComponents": {
     "index-unicloud-db-default": "/pages/index/index-unicloud-db-default",
-    "u-button": "/uview-ui/components/u-button/u-button",
     "u-dropdown": "/uview-ui/components/u-dropdown/u-dropdown",
     "u-dropdown-item": "/uview-ui/components/u-dropdown-item/u-dropdown-item",
     "u-field": "/uview-ui/components/u-field/u-field",
+    "u-button": "/uview-ui/components/u-button/u-button",
     "unicloud-db": "/node-modules/@dcloudio/uni-cli-shared/components/unicloud-db",
     "u-loadmore": "/uview-ui/components/u-loadmore/u-loadmore",
     "task-item": "/components/task-item"

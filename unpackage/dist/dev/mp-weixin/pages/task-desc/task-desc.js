@@ -125,22 +125,22 @@ var components
 try {
   components = {
     uCellGroup: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-cell-group/u-cell-group */ "uview-ui/components/u-cell-group/u-cell-group").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-cell-group/u-cell-group.vue */ 305))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-cell-group/u-cell-group */ "uview-ui/components/u-cell-group/u-cell-group").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-cell-group/u-cell-group.vue */ 312))
     },
     uCellItem: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-cell-item/u-cell-item */ "uview-ui/components/u-cell-item/u-cell-item").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-cell-item/u-cell-item.vue */ 312))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-cell-item/u-cell-item */ "uview-ui/components/u-cell-item/u-cell-item").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-cell-item/u-cell-item.vue */ 319))
     },
     uButton: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 273))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 280))
     },
     uImage: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 319))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 326))
     },
     uniFilePicker: function() {
-      return Promise.all(/*! import() | uni_modules/uni-file-picker/components/uni-file-picker/uni-file-picker */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-file-picker/components/uni-file-picker/uni-file-picker")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-file-picker/components/uni-file-picker/uni-file-picker.vue */ 326))
+      return Promise.all(/*! import() | uni_modules/uni-file-picker/components/uni-file-picker/uni-file-picker */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-file-picker/components/uni-file-picker/uni-file-picker")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-file-picker/components/uni-file-picker/uni-file-picker.vue */ 333))
     },
     uModal: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-modal/u-modal */ "uview-ui/components/u-modal/u-modal").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-modal/u-modal.vue */ 334))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-modal/u-modal */ "uview-ui/components/u-modal/u-modal").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-modal/u-modal.vue */ 341))
     }
   }
 } catch (e) {
@@ -399,17 +399,21 @@ var _moment = _interopRequireDefault(__webpack_require__(/*! moment */ 59));func
 
                 }if (!(
                 _this2.$util.store.userInfo.openId == _this2.taskData.creator)) {_context2.next = 4;break;}
-                _this2.$util.showToast('不能领取自己发布的任务哦');return _context2.abrupt("return");case 4:_context2.next = 6;return (
+                _this2.$util.showToast('不能领取自己发布的任务哦');return _context2.abrupt("return");case 4:if (!(
+
+
+                _this2.$util.store.userInfo.credit < 60)) {_context2.next = 7;break;}
+                _this2.$util.showToast('您的信用分过低，不能领取任务哦，请先通过每日登录获取信用分吧');return _context2.abrupt("return");case 7:_context2.next = 9;return (
 
 
                   _this2.$util.http('receiveTask', {
-                    taskData: _this2.taskData }));case 6:res = _context2.sent;
+                    taskData: _this2.taskData }));case 9:res = _context2.sent;
 
                 _this2.$util.showToast('领取成功', '', function () {
                   uni.redirectTo({
                     url: "/pages/task-list/task-list?type=receive" });
 
-                });case 8:case "end":return _context2.stop();}}}, _callee2);}))();
+                });case 11:case "end":return _context2.stop();}}}, _callee2);}))();
     },
     // 提交任务 -- 领取者
     confirmSubmit: function confirmSubmit() {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:if (
@@ -523,7 +527,7 @@ var _moment = _interopRequireDefault(__webpack_require__(/*! moment */ 59));func
     },
     applyAllege: function applyAllege() {var _this7 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee9() {return _regenerator.default.wrap(function _callee9$(_context9) {while (1) {switch (_context9.prev = _context9.next) {case 0:
                 uni.showModal({
-                  content: '是否确认发起申述？',
+                  content: '请谨慎发起申述，若申述失败您将扣除信用分，是否确认？',
                   success: function () {var _success3 = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee8(res) {var ret;return _regenerator.default.wrap(function _callee8$(_context8) {while (1) {switch (_context8.prev = _context8.next) {case 0:if (!
                               res.confirm) {_context8.next = 5;break;}_context8.next = 3;return (
                                 _this7.$util.http('updateReceiveStatus', {

@@ -96,10 +96,10 @@ var components
 try {
   components = {
     uButton: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 273))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 280))
     },
     uDivider: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-divider/u-divider */ "uview-ui/components/u-divider/u-divider").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-divider/u-divider.vue */ 387))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-divider/u-divider */ "uview-ui/components/u-divider/u-divider").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-divider/u-divider.vue */ 394))
     }
   }
 } catch (e) {
@@ -192,7 +192,11 @@ var _default =
     return {};
 
 
-  } };exports.default = _default;
+  },
+  methods: {
+    watchAd: function watchAd() {
+      this.$util.showToast('感谢您的支持，该功能正在开发中，近期上线');
+    } } };exports.default = _default;
 
 /***/ }),
 

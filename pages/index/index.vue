@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		<u-button type="primary" @click="testTimer">测试定时函数</u-button>
+		<!-- <u-button type="primary" @click="testTimer">测试定时函数</u-button> -->
 		<view style="border-bottom: 1px solid #eee; z-index: 999;">
 			<u-dropdown ref="uDropdown">
 				<u-dropdown-item v-model="order" title="排序" :options="orderOptions"></u-dropdown-item>

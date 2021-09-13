@@ -47,7 +47,8 @@ async function refreshUserStatus() {
 		await db.collection("user").where({
 			credit: db.command.gt(0)
 		}).update({
-			"todayRecommendUsers": [],
+			"todayRecommendFrom": ""
+			"todayRecommendScore": [],
 			"todayWatchAdTime": 0,
 			"todayFirstLoginTime": 0
 		})

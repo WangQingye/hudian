@@ -94,7 +94,7 @@ var components
 try {
   components = {
     unicloudDb: function() {
-      return Promise.all(/*! import() | node-modules/@dcloudio/uni-cli-shared/components/unicloud-db */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/@dcloudio/uni-cli-shared/components/unicloud-db")]).then(__webpack_require__.bind(null, /*! @dcloudio/uni-cli-shared/components/unicloud-db.vue */ 280))
+      return Promise.all(/*! import() | node-modules/@dcloudio/uni-cli-shared/components/unicloud-db */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/@dcloudio/uni-cli-shared/components/unicloud-db")]).then(__webpack_require__.bind(null, /*! @dcloudio/uni-cli-shared/components/unicloud-db.vue */ 287))
     }
   }
 } catch (e) {
@@ -151,7 +151,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var taskItem = function taskItem() {Promise.all(/*! require.ensure | components/task-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/task-item")]).then((function () {return resolve(__webpack_require__(/*! ../../components/task-item.vue */ 298));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var taskItem = function taskItem() {Promise.all(/*! require.ensure | components/task-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/task-item")]).then((function () {return resolve(__webpack_require__(/*! ../../components/task-item.vue */ 305));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -209,7 +209,11 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     sort: function sort() {
-      return 'receiveTime desc';
+      if (this.type === 'publish') {
+        return 'createTime desc';
+      } else {
+        return 'receiveTime desc';
+      }
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

@@ -3,7 +3,9 @@ const db = uniCloud.database()
 async function getOneTask(_id) {
 	let task = await db.collection("task").where({
 		_id: _id,
-	}).get({getOne:true});
+	}).get({
+		getOne: true
+	});
 	task = task.data[0]
 	return task
 }
@@ -32,10 +34,14 @@ exports.updateReceiveRecordStatus = async function(receiveId, status, submitImg,
 	// 获取原来的领取条
 	let receive = await db.collection("taskReceive").where({
 		_id: receiveId,
-	}).get({getOne:true});
+	}).get({
+		getOne: true
+	});
 	receive = receive.data[0]
 	// 更新领取条
-	let data = { status: status }
+	let data = {
+		status: status
+	}
 	// 如果是提交任务，那么更新一下上传的图片
 	if (status == 'SUBMIT') {
 		data.submitImg = submitImg
@@ -68,6 +74,11 @@ exports.updateReceiveRecordStatus = async function(receiveId, status, submitImg,
 			await addUserScore(creator, score, 0)
 		}
 	}
+	if (status == 'ALLEGE-FAILED') {
+		// 申述失败，一切不变，提起申述的人扣10分信用分
+		let applyer = receive.allegeFrom
+		await addUserScore(applyer, 0, -10)
+	}
 	if (status == 'del') {
 		await db.collection("taskReceive").doc(receiveId).remove()
 	} else {
@@ -78,13 +89,16 @@ exports.updateReceiveRecordStatus = async function(receiveId, status, submitImg,
 	// 更新任务中的领取条
 	let task = await getOneTask(receive.taskId)
 	// 获取任务中原来的领取情况,并改变之
-	task.receiveStatus.forEach((item,index) => {
+	task.receiveStatus.forEach((item, index) => {
 		if (item.receiveId === receiveId) {
 			// 如果是删除任务那直接删除
 			if (status == 'del') {
 				task.receiveStatus.splice(index, 1)
 			} else {
-				task.receiveStatus[index] = {...item, ...data}
+				task.receiveStatus[index] = {
+					...item,
+					...data
+				}
 			}
 		}
 	})
@@ -98,7 +112,9 @@ exports.updateReceiveRecordStatus = async function(receiveId, status, submitImg,
 	await db.collection("task").where({
 		_id: receive.taskId,
 	}).update(updateTaskData);
-	return {msg: 'success'}
+	return {
+		msg: 'success'
+	}
 }
 // 加减用户积分
 async function addUserScore(userOpenId, score, credit) {

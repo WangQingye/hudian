@@ -8,7 +8,7 @@
 		<view class="single">
 			<view class="title">2、播放广告</view>
 			<view class="text">可以通过播放广告获得积分（1次1分），每天最多3次。开发不易，感谢支持！</view>
-			<u-button style="width: 230rpx;" type="primary" open-type="share">看广告</u-button>
+			<u-button style="width: 230rpx;" type="primary" @click="watchAd">看广告</u-button>
 		</view>
 		<view class="single">
 			<view class="title">3、每日登录</view>
@@ -34,6 +34,11 @@
 			return {
 				
 			};
+		},
+		methods: {
+			watchAd() {
+				this.$util.showToast('感谢您的支持，该功能正在开发中，近期上线')
+			}
 		}
 	}
 </script>

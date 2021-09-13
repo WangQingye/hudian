@@ -33,7 +33,7 @@
 					</view>
 				</u-cell-item> -->
 
-				<u-cell-item icon="photo" title="完成情况截图" :arrow="false" v-if="type !== 'before-receive'">
+				<u-cell-item icon="photo" title="完成情况截图" :arrow="false" v-if="type !== 'before-receive' && type !== 'publish'">
 					<view v-if="taskData.status == 'DOING'">
 						<uni-file-picker v-model="imageValue" file-mediatype="image" mode="grid" :limit="1"
 							@delete="deleteImg"></uni-file-picker>
@@ -73,7 +73,7 @@
 				<u-button style="width: 200rpx;" type="success" v-if="type==='allege'" @click="allegeConfirm(true)">申述通过
 				</u-button>
 			</view>
-			<view v-if="taskData.status === 'REJECTED'">
+			<view v-if="taskData.status === 'REJECTED'" style="width: 325rpx; margin: 0 25rpx;">
 				<u-button type="warning" @click="applyAllege">提起申述</u-button>
 				<text style="font-size: 20rpx; color: #aaa; text-align: center;">若您觉得任务审批有问题，可以发起申述，申述成功后可返回积分</text>
 			</view>
@@ -91,7 +91,7 @@
 			:confirm-text="'确认提交'">
 			<view style="padding: 30rpx; padding-bottom: 40rpx;">
 				<p style="text-indent: 60rpx;">请确认您已经完成了任务并提交了能证明的<span
-						style="color: red">相关截图或信息</span>，若提交后被任务发布者投诉，将影响您的<span
+						style="color: red">相关截图信息</span>，若提交后被任务发布者投诉，将影响您的<span
 						style="color: red">信用记录</span>，保持良好的信用记录才能让您自己发布的任务被推荐哟！</p>
 			</view>
 		</u-modal>
@@ -169,6 +169,10 @@
 				}
 				if (this.$util.store.userInfo.openId == this.taskData.creator) {
 					this.$util.showToast('不能领取自己发布的任务哦')
+					return
+				}
+				if (this.$util.store.userInfo.credit < 60) {
+					this.$util.showToast('您的信用分过低，不能领取任务哦，请先通过每日登录获取信用分吧')
 					return
 				}
 				let res = await this.$util.http('receiveTask', {
@@ -292,7 +296,7 @@
 			},
 			async applyAllege() {
 				uni.showModal({
-					content: '是否确认发起申述？',
+					content: '请谨慎发起申述，若申述失败您将扣除信用分，是否确认？',
 					success: async (res) => {
 						if (res.confirm) {
 							let ret = await this.$util.http('updateReceiveStatus', {

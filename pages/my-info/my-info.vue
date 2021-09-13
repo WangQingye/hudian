@@ -1,5 +1,6 @@
 <template>
 	<view class="my-info" v-if="userInfo.nickName">
+		<aTip></aTip>
 		<view class="info">
 			<u-avatar class="avatar" size="140" :src="userInfo.avatarUrl"></u-avatar>
 			<view class="name-info">
