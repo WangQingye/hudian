@@ -38,7 +38,7 @@
 	}, {
 		"path": "pages/publish/publish",
 		"style": {
-			"navigationBarTitleText": "发布任务",
+			"navigationBarTitleText": "记录生活",
 			"enablePullDownRefresh": false
 		}
 
@@ -55,7 +55,7 @@
             "path" : "pages/help/help",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "帮助",
                 "enablePullDownRefresh": false
             }
             
@@ -64,7 +64,7 @@
             "path" : "pages/login/login",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "登录",
                 "enablePullDownRefresh": false
             }
             
@@ -89,7 +89,7 @@
 			"pagePath": "pages/index/index",
 			"iconPath": "static/jiarufangjian-01.png",
 			"selectedIconPath": "static/jiarufangjian-01.png",
-			"text": "广场"
+			"text": "生活记录"
 		}, {
 			"pagePath": "pages/my-info/my-info",
 			"iconPath": "static/haoyou.png",

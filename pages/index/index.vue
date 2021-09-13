@@ -1,7 +1,7 @@
 <template>
 	<view class="container">
 		<!-- <u-button type="primary" @click="testTimer">测试定时函数</u-button> -->
-		<view style="border-bottom: 1px solid #eee; z-index: 999;">
+	<!-- 	<view style="border-bottom: 1px solid #eee; z-index: 999;">
 			<u-dropdown ref="uDropdown">
 				<u-dropdown-item v-model="order" title="排序" :options="orderOptions"></u-dropdown-item>
 				<u-dropdown-item title="任务类型">
@@ -20,7 +20,7 @@
 					</view>
 				</u-dropdown-item>
 			</u-dropdown>
-		</view>
+		</view> -->
 		<unicloud-db ref="udb" v-slot:default="{data, loading, error, options, hasMore}" collection="task" :where="typeSearch"
 		 :orderby="sort" manual :page-size="5">
 			<view>

@@ -2,31 +2,31 @@
 	<view>
 		<view class="task-desc">
 			<u-cell-group v-if="taskData._id">
-				<u-cell-item icon="clock" title="任务状态" v-if="type === 'receive'" :value="countTime" :arrow="false">
+				<!-- <u-cell-item icon="clock" title="任务状态" v-if="type === 'receive'" :value="countTime" :arrow="false">
 				</u-cell-item>
 				<u-cell-item icon="order" title="任务平台1" :arrow="false"
 					:value="taskData.type || taskData.taskDetail.type"></u-cell-item>
 				<u-cell-item v-if="type !== 'receive' && type !== 'allege'" icon="integral" title="剩余次数"
 					:value="`${taskData.restNum}/${taskData.totalNum}`" :arrow="false"></u-cell-item>
 				<u-cell-item v-if="type == 'allege'" icon="account" title="申述人" :value="getAllegeText()" :arrow="false">
-				</u-cell-item>
-				<u-cell-item icon="attach" title="任务链接" :value="taskData.link || taskData.taskDetail.link"
+				</u-cell-item> -->
+				<u-cell-item icon="attach" title="生活标题" :value="taskData.link || taskData.taskDetail.link"
 					:arrow="false">
 					<u-button slot="right-icon" size="mini" style="margin-left: 20rpx;" type="primary" @click="copy">
 						一键复制</u-button>
 				</u-cell-item>
-				<u-cell-item icon="photo" title="任务图片" :arrow="false" v-if="type !== 'receive'">
+				<u-cell-item icon="photo" title="生活图片" :arrow="false" v-if="type !== 'receive'">
 					<view slot="right-icon">
 						<u-image @click="$util.previewImg([taskData.img || taskData.taskDetail.img])" width="300rpx"
 							height="300rpx" :src="taskData.img || taskData.taskDetail.img"></u-image>
 					</view>
 				</u-cell-item>
-				<u-cell-item icon="file-text" title="任务描述" :value="taskData.desc || taskData.taskDetail.desc"
+				<u-cell-item icon="file-text" title="生活描述" :value="taskData.desc || taskData.taskDetail.desc"
 					:arrow="false"></u-cell-item>
-				<u-cell-item icon="clock" title="完成时限" v-if="type !== 'receive'" :value="`${taskData.limitTime / 60}小时`"
+			<!-- 	<u-cell-item icon="clock" title="完成时限" v-if="type !== 'receive'" :value="`${taskData.limitTime / 60}小时`"
 					:arrow="false"></u-cell-item>
 				<u-cell-item icon="gift" title="积分奖励" :value="taskData.score || taskData.taskDetail.score"
-					:arrow="false"></u-cell-item>
+					:arrow="false"></u-cell-item> -->
 				<!-- <u-cell-item icon="photo" title="我的截图" :arrow="false" v-if="type === 'receive'">
 					<view slot="right-icon" style="display: flex;align-items: center;">
 						<u-upload :action="action" :file-list="fileList" :max-count="1"></u-upload>
@@ -52,9 +52,9 @@
 				<u-button style="width: 300rpx;" type="primary" v-if="taskData.status == 'DOING' && type==='receive'"
 					@click="showSubmitConfirm = true">提交任务</u-button>
 				<!-- 主页点进进入领取 -->
-				<u-button style="width: 300rpx;" v-if="type==='before-receive'" @click="goBack">返回</u-button>
+			<!-- 	<u-button style="width: 300rpx;" v-if="type==='before-receive'" @click="goBack">返回</u-button>
 				<u-button style="width: 300rpx;" type="primary" v-if="type==='before-receive'"
-					@click="showReceiveConfirm = true">领取</u-button>
+					@click="showReceiveConfirm = true">领取</u-button> -->
 				<!-- 我的发布点进进入 -->
 				<view style="width: 230rpx;" v-if="type==='publish'">
 					<u-button type="primary" @click="refreshTask">擦亮

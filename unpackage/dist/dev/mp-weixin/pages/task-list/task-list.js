@@ -94,7 +94,7 @@ var components
 try {
   components = {
     unicloudDb: function() {
-      return Promise.all(/*! import() | node-modules/@dcloudio/uni-cli-shared/components/unicloud-db */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/@dcloudio/uni-cli-shared/components/unicloud-db")]).then(__webpack_require__.bind(null, /*! @dcloudio/uni-cli-shared/components/unicloud-db.vue */ 287))
+      return Promise.all(/*! import() | node-modules/@dcloudio/uni-cli-shared/components/unicloud-db */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/@dcloudio/uni-cli-shared/components/unicloud-db")]).then(__webpack_require__.bind(null, /*! @dcloudio/uni-cli-shared/components/unicloud-db.vue */ 259))
     }
   }
 } catch (e) {
@@ -151,7 +151,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var taskItem = function taskItem() {Promise.all(/*! require.ensure | components/task-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/task-item")]).then((function () {return resolve(__webpack_require__(/*! ../../components/task-item.vue */ 305));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var taskItem = function taskItem() {Promise.all(/*! require.ensure | components/task-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/task-item")]).then((function () {return resolve(__webpack_require__(/*! ../../components/task-item.vue */ 277));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -178,7 +178,8 @@ __webpack_require__.r(__webpack_exports__);
       allege: '申述列表' };
 
     uni.setNavigationBarTitle({
-      title: title[this.type] });
+      // title: title[this.type]
+      title: '生活记录' });
 
   },
   data: function data() {

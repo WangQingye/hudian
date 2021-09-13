@@ -31,7 +31,7 @@
         "pagePath": "pages/index/index",
         "iconPath": "static/jiarufangjian-01.png",
         "selectedIconPath": "static/jiarufangjian-01.png",
-        "text": "广场"
+        "text": "生活记录"
       },
       {
         "pagePath": "pages/my-info/my-info",

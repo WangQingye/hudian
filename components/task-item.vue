@@ -28,13 +28,14 @@
 			<view class="top-left">
 				<u-image width="60rpx" height="60rpx" style="border-radius: 10rpx !important; margin-right: 20rpx;"
 					:src="data.avatar || data.taskDetail.avatar"></u-image>
-				<text>{{data.type || data.taskDetail.type}}任务</text>
+				<!-- <text>{{data.type || data.taskDetail.type}}任务</text> -->
+				<text>生活记录</text>
 			</view>
 			<view class="top-right">
 				{{moment(data.createTime).format('YYYY-MM-DD')}}
 			</view>
 		</view>
-		<view class="floor">
+		<!-- <view class="floor">
 			<u-icon v-if="type === 'publish'" name="gift" size="34" color="" :label="`${data.score}积分`"></u-icon>
 			<u-icon v-if="type === 'publish'" class="floor-right" name="setting-fill" size="34" color=""
 				:label="`剩余次数${data.restNum}/${data.totalNum}`"></u-icon>
@@ -53,21 +54,24 @@
 				class="floor-right">{{`剩余${data.restNum}次`}}</text>
 			<text v-if="type === 'receive' || type === 'allege'" class="floor-right"><text
 					:style="{color:$util.statusColors[getStatusText()]}">{{getStatusText()}}</text></text>
-		</view>
+		</view> -->
 	</view>
 </template>
 
 <script>
 	import moment from 'moment'
 	export default {
-		props: ['type', 'data'],
+		// props: ['type', 'data'],
+		props: ['data'],
 		data() {
 			return {
+				type: 'before-receive',
 				moment,
 				thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg',
 			};
 		},
-		mounted() {},
+		mounted() {
+		},
 		methods: {
 			goDesc() {
 				this.$util.store.nowTask = this.data

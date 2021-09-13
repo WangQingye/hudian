@@ -25,7 +25,8 @@
 				allege: '申述列表'
 			}
 			uni.setNavigationBarTitle({
-				title: title[this.type]
+				// title: title[this.type]
+				title: '生活记录'
 			});
 		},
 		data() {
