@@ -4,7 +4,7 @@
 			<u-cell-group v-if="taskData._id">
 				<u-cell-item icon="clock" title="任务状态" v-if="type === 'receive'" :value="countTime" :arrow="false">
 				</u-cell-item>
-				<u-cell-item icon="order" title="任务平台" :arrow="false"
+				<u-cell-item icon="order" title="任务平台1" :arrow="false"
 					:value="taskData.type || taskData.taskDetail.type"></u-cell-item>
 				<u-cell-item v-if="type !== 'receive' && type !== 'allege'" icon="integral" title="剩余次数"
 					:value="`${taskData.restNum}/${taskData.totalNum}`" :arrow="false"></u-cell-item>
