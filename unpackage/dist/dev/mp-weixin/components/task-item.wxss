@@ -58,9 +58,9 @@
   -webkit-box-align: center;
   -webkit-align-items: center;
           align-items: center;
-  margin-bottom: 30rpx;
+  margin-bottom: 20rpx;
   border-bottom: 2rpx solid #eee;
-  padding-bottom: 30rpx;
+  padding-bottom: 20rpx;
 }
 .card .top .top-left.data-v-952ddba0 {
   display: -webkit-box;
@@ -77,9 +77,16 @@
   font-size: 26rpx;
   color: #6f6f6f;
 }
+.card .floor.data-v-952ddba0 {
+  margin-top: 20rpx;
+}
 .card .floor-right.data-v-952ddba0 {
   font-size: 26rpx;
   color: #6f6f6f;
   float: right;
+}
+.middle.data-v-952ddba0 {
+  font-size: 26rpx;
+  color: #6f6f6f;
 }
 

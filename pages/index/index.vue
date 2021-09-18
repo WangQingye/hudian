@@ -1,14 +1,15 @@
 <template>
 	<view class="container">
 		<!-- <u-button type="primary" @click="testTimer">测试定时函数</u-button> -->
-		<view style="border-bottom: 1px solid #eee; z-index: 999;">
+		<!-- <u-button type="primary" @click="test">测试</u-button> -->
+		<view style="border-bottom: 1px solid #eee; z-index: 999; display: flex; align-items: center;" v-if="showReal">
 			<u-dropdown ref="uDropdown">
 				<u-dropdown-item v-model="order" title="排序" :options="orderOptions"></u-dropdown-item>
 				<u-dropdown-item title="任务类型">
 					<view class="slot-content">
 						<view class="item-box">
-							<view class="item" :class="[item.active ? 'active' : '']" @tap="tagClick(index)" v-for="(item, index) in typeOptions"
-							 :key="index">
+							<view class="item" :class="[item.active ? 'active' : '']" @tap="tagClick(index)"
+								v-for="(item, index) in typeOptions" :key="index">
 								{{item.label}}
 							</view>
 						</view>
@@ -19,12 +20,24 @@
 						<u-button type="primary" @click="changeTypes">确定</u-button>
 					</view>
 				</u-dropdown-item>
+				<u-dropdown-item title="使用指南">
+					<view class="slot-content">
+						<u-image width="100%" height="350rpx" mode="scaleToFill" src="@/static/banner.png"></u-image>
+					</view>
+				</u-dropdown-item>
 			</u-dropdown>
+			<!-- <text style="width: 260rpx; text-align: center; color: #606266">使用指南<u-icon name="question" style="font-size: 20rpx;"></u-icon></text> -->
+			<!-- <u-icon style="margin-right: 20rpx;" name="question" color="#606266" size="24" label="使用指南" label-pos="left"></u-icon> -->
 		</view>
-		<unicloud-db ref="udb" v-slot:default="{data, loading, error, options, hasMore}" collection="task" :where="typeSearch"
-		 :orderby="sort" manual :page-size="5">
-			<view>
-				<task-item v-for="i in data" :type="'before-receive'" :data="i"></task-item>
+		<u-notice-bar mode="vertical" type="primary" duration="4000" :list="notices" v-if="showReal"></u-notice-bar>
+		<unicloud-db ref="udb" v-slot:default="{data, loading, error, options, hasMore}" collection="task"
+			:where="typeSearch" :orderby="sort" manual :page-size="5">
+			<view v-if="showReal">
+				<task-item v-for="(i,index) in data" :key="index" :type="'before-receive'" :data="i"></task-item>
+			</view>
+			<view v-if="!showReal">
+				<fake-task-item v-for="(i,index) in data.filter(d => d.creator === $util.store.userInfo.openId)"
+					:key="index" :type="'before-receive'" :data="i"></fake-task-item>
 			</view>
 			<view style="margin: 30rpx 0;">
 				<u-loadmore :status=" loading ? 'loading' : hasMore ? 'loadmore' : 'nomore'" />
@@ -35,14 +48,19 @@
 
 <script>
 	import taskItem from '../../components/task-item.vue'
-	import {pullDownMixin} from '../../common/mixin.js'
+	import fakeTaskItem from '../../components/fake-task-item.vue'
+	import {
+		pullDownMixin
+	} from '../../common/mixin.js'
 	export default {
 		mixins: [pullDownMixin],
 		components: {
-			taskItem
+			taskItem,
+			fakeTaskItem
 		},
 		data() {
 			return {
+				showReal: false,
 				order: 1,
 				typeArr: [],
 				orderOptions: [{
@@ -79,10 +97,19 @@
 						active: false,
 					}
 				],
-				originalType: ''
+				originalType: '',
+				notices: []
 			};
 		},
-		onLoad(options) {
+		async onLoad(options) {
+			await this.isAudit()
+			if (options.refresh == '1') {
+				this.$nextTick(() => {
+					this.$refs.udb.loadData({
+						clear: true
+					})
+				})
+			}
 			if (options.recommend) {
 				this.$util.store.recommendFrom = options.recommend
 			}
@@ -101,8 +128,47 @@
 					})
 				}
 			})
+			this.getIndexNotices()
 		},
 		methods: {
+			getIndexNotices() {
+				this.$util.http('getIndexNotices').then(data => {
+					if (data.result.length) {
+						this.notices = data.result
+					}
+				})
+			},
+			isAudit() {
+				this.$util.http('testVersionAudit', {
+					version: '0.0.9'
+				}).then(data => {
+					if (data.result) {
+						this.$util.store.showReal = false
+						uni.setNavigationBarTitle({
+							title: '生活记录'
+						});
+						uni.setTabBarItem({
+							index: 0,
+							text: '生活记录'
+						});
+						uni.setTabBarItem({
+							index: 1,
+							text: '我的'
+						});
+					} else {
+						this.$util.store.showReal = true
+						this.showReal = true
+						uni.setTabBarItem({
+							index: 0,
+							text: '赚积分'
+						});
+						uni.setTabBarItem({
+							index: 1,
+							text: '求帮点'
+						});
+					}
+				})
+			},
 			tagClick(index) {
 				this.typeOptions[index].active = !this.typeOptions[index].active;
 			},
@@ -123,8 +189,14 @@
 			},
 			testTimer() {
 				uniCloud.callFunction({
-						name: 'timer',
-						data: {}
+					name: 'timer',
+					data: {}
+				})
+			},
+			async test() {
+				let res = await this.$util.http('testMsg', {
+					msg: '1',
+					userId: this.$util.store.userInfo.openId
 				})
 			}
 		},

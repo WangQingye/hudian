@@ -8,6 +8,7 @@ export const pullDownMixin = {
 		})
 	},
 	onReady() {
+		console.log('loadData')
 		this.$refs.udb.loadData()
 	},
 	onReachBottom() { //滚动到底翻页

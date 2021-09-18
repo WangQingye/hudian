@@ -1,0 +1,1 @@
+{"version":3,"sources":["uni-app:///main.js"],"names":["createPage","Page"],"mappings":";;;;wEAAA,qBACA,sBACA,oD,mDACAA,EAAWC,a","file":"pages/fake-index/fake-index.js","sourcesContent":["import 'uni-pages';\nimport Vue from 'vue'\nimport Page from './pages/fake-index/fake-index.vue'\ncreatePage(Page)"],"sourceRoot":""}

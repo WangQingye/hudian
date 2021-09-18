@@ -5,12 +5,16 @@
 			<u-avatar class="avatar" size="140" :src="userInfo.avatarUrl"></u-avatar>
 			<view class="name-info">
 				<view class="name">{{userInfo.nickName}}</view>
-				<view class="score">积分：{{userInfo.score}}</view>
-				<view class="score" style="margin-top:10rpx">信用分：{{userInfo.credit}}</view>
+				<view v-if="!showReal" class="score">记录美好生活</view>
+				<view v-if="showReal" class="score">积分：{{userInfo.score}}</view>
+				<view v-if="showReal" class="score" style="margin-top:10rpx">信用分：{{userInfo.credit}}</view>
 			</view>
 		</view>
 		<u-gap height="15" bg-color="#eee"></u-gap>
-		<u-cell-group>
+		<u-cell-group v-if="!showReal">
+			<u-cell-item icon="email" title="记录生活" @click="goPublish()"></u-cell-item>
+		</u-cell-group>
+		<u-cell-group v-if="showReal">
 			<u-cell-item icon="email" title="发布任务" @click="goPublish()"></u-cell-item>
 			<u-cell-item icon="coupon-fill" title="我发布的" @click="goList('publish')"></u-cell-item>
 			<u-cell-item icon="coupon" title="我领取的" @click="goList('receive')"></u-cell-item>
@@ -25,10 +29,12 @@
 	export default {
 		data() {
 			return {
-				userInfo: {}
+				userInfo: {},
+				showReal: false
 			}
 		},
 		onShow() {
+			this.showReal = this.$util.store.showReal
 			this.getUserInfo()
 		},
 		methods: {

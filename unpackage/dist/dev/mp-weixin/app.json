@@ -2,6 +2,7 @@
   "pages": [
     "pages/index/index",
     "pages/task-desc/task-desc",
+    "pages/task-desc/task-desc-fake",
     "pages/my-info/my-info",
     "pages/task-list/task-list",
     "pages/finish-task/finish-task",
@@ -31,13 +32,13 @@
         "pagePath": "pages/index/index",
         "iconPath": "static/jiarufangjian-01.png",
         "selectedIconPath": "static/jiarufangjian-01.png",
-        "text": "广场"
+        "text": ""
       },
       {
         "pagePath": "pages/my-info/my-info",
         "iconPath": "static/haoyou.png",
         "selectedIconPath": "static/haoyou.png",
-        "text": "我的"
+        "text": ""
       }
     ]
   },

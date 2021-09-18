@@ -4,7 +4,9 @@ export default class util {
 			userInfo: {},
 			nowTask: {},
 			nowReceive: {},
-			recommendFrom: ''
+			recommendFrom: '',
+			showReal: false,
+			accessToken: ''
 		}
 		// this.taskStatusType = [
 		// 	'已过期', '进行中', '已完成', '申述中', '申述通过', '申述失败','已提交,等待审核'
@@ -71,7 +73,7 @@ export default class util {
 					uni.hideLoading()
 					console.log('err', err)
 					uni.showToast({
-						title: '抱歉出了一点小错误，请稍后重试',
+						title: '抱歉出了一点小错误，请稍后再试或重新打开小程序',
 						duration: 2000,
 						icon: 'none'
 					});
@@ -94,7 +96,7 @@ export default class util {
 			}
 			return ret.result
 		} else {
-			uni.navigateTo({
+			uni.redirectTo({
 				url: `/pages/login/login`
 			});
 		}
@@ -122,4 +124,43 @@ export default class util {
 			urls: urls
 		})
 	}
+	getAccessToken() {
+		let that = this
+		return new Promise((resolve, reject) => {
+			uni.request({
+				url: 'https://api.weixin.qq.com/cgi-bin/token', //仅为示例，并非真实接口地址。
+				// url: 'https://api.weixin.qq.com/wxa/msg_sec_check?access_token=ACCESS_TOKEN', //仅为示例，并非真实接口地址。
+				data: {
+					grant_type: 'client_credential',
+					appid: 'wxa5c8a9951e47b6ba',
+					secret: 'c333a5d1ff4efdc417dc3125b75c9f5d'
+				},
+				success: (res) => {
+					this.store.accessToken = res.data.access_token
+					resolve(res.data)
+				}
+			})
+		})
+	}
+	testMsg(content) {
+		let that = this
+		return new Promise((resolve, reject) => {
+			uni.request({
+				method: 'POST',
+				url: `https://api.weixin.qq.com/wxa/msg_sec_check?access_token=${that.store.accessToken}`,
+				data: {
+					"openid": that.store.userInfo.openId,
+					"scene": 3,
+					"version": 2,
+					"content": content
+				},
+				success: (res) => {
+					console.log(res)
+					resolve(res.data)
+				}
+			})
+		})
+	}
+
+	// wxa5c8a9951e47b6ba
 }

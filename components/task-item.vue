@@ -1,29 +1,5 @@
 <template>
 	<view class="card" @click="goDesc">
-		<!-- 	<u-card class="card" :title="`${data.type || data.taskDetail.type}任务`"
-			:sub-title="moment(data.createTime).format('YYYY-MM-DD')" :thumb="data.avatar || data.taskDetail.avatar"
-			@click="goDesc" border-radius="0" :body-style="{display:'none'}">
-			<view slot="foot">
-				<u-icon v-if="type === 'publish'" name="gift" size="34" color="" :label="`${data.score}积分`"></u-icon>
-				<u-icon v-if="type === 'publish'" style="float: right;" name="setting-fill" size="34" color=""
-					:label="`剩余次数${data.restNum}/${data.totalNum}`"></u-icon>
-				<u-collapse slot="right-icon" v-if="type === 'publish'">
-					<u-collapse-item title="完成情况">
-						<view v-for="receive in data.receiveStatus" :key="receive.receiveId"
-							style="margin-bottom: 25rpx; text-decoration: underline; color: #2979ff;">
-							<text v-if="receive.status !== 'PASSED'"
-								@click.stop="goFinish(receive)">{{`${getStatusText(receive)} ${moment(receive.receiveTime).format('YYYY-MM-DD hh:mm:ss')} 用户${receive.receiveUserName}`}}</text>
-						</view>
-					</u-collapse-item>
-				</u-collapse>
-				<u-icon v-if="type !== 'publish'" name="gift" size="34" color=""
-					:label="`${data.score || data.taskDetail.score}积分`"></u-icon>
-				<text v-if="type !== 'publish' && type !== 'receive' && type !== 'allege' "
-					style="float: right;">{{`剩余${data.restNum}次`}}</text>
-				<text v-if="type === 'receive' || type === 'allege'" style="float: right;"><text
-						:style="{color:$util.statusColors[getStatusText()]}">{{getStatusText()}}</text></text>
-			</view>
-		</u-card> -->
 		<view class="top">
 			<view class="top-left">
 				<u-image width="60rpx" height="60rpx" style="border-radius: 10rpx !important; margin-right: 20rpx;"
@@ -31,10 +7,15 @@
 				<text>{{data.type || data.taskDetail.type}}任务</text>
 			</view>
 			<view class="top-right">
-				{{moment(data.createTime).format('YYYY-MM-DD')}}
+				<u-icon v-if="type !== 'publish'" name="gift" size="34" color="red"
+					:label="`${data.score || data.taskDetail.score}积分`"></u-icon>
+				<view v-else>{{moment(data.createTime).format('YYYY-MM-DD')}}</view>
 			</view>
 		</view>
-		<view class="floor">
+		<view class="middle" v-if="type !== 'publish'">
+			{{data.desc || data.taskDetail.desc}}
+		</view>
+		<view class="floor" v-if="type !== 'before-receive'">
 			<u-icon v-if="type === 'publish'" name="gift" size="34" color="" :label="`${data.score}积分`"></u-icon>
 			<u-icon v-if="type === 'publish'" class="floor-right" name="setting-fill" size="34" color=""
 				:label="`剩余次数${data.restNum}/${data.totalNum}`"></u-icon>
@@ -47,10 +28,10 @@
 					</view>
 				</u-collapse-item>
 			</u-collapse>
-			<u-icon v-if="type !== 'publish'" name="gift" size="34" color=""
-				:label="`${data.score || data.taskDetail.score}积分`"></u-icon>
-			<text v-if="type !== 'publish' && type !== 'receive' && type !== 'allege' "
-				class="floor-right">{{`剩余${data.restNum}次`}}</text>
+			<!-- <u-icon v-if="type !== 'publish'" name="gift" size="34" color="red"
+				:label="`${data.score || data.taskDetail.score}积分`"></u-icon> -->
+			<text v-if="type === 'receive' || type === 'allege'"
+				class="middle">{{moment(data.createTime).format('YYYY-MM-DD')}}</text>
 			<text v-if="type === 'receive' || type === 'allege'" class="floor-right"><text
 					:style="{color:$util.statusColors[getStatusText()]}">{{getStatusText()}}</text></text>
 		</view>
@@ -131,9 +112,9 @@
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
-			margin-bottom: 30rpx;
+			margin-bottom: 20rpx;
 			border-bottom: 2rpx solid #eee;
-			padding-bottom: 30rpx;
+			padding-bottom: 20rpx;
 
 			.top-left {
 				display: flex;
@@ -147,10 +128,19 @@
 			}
 		}
 
+		.floor {
+			margin-top: 20rpx;
+		}
+
 		.floor-right {
 			font-size: 26rpx;
 			color: #6f6f6f;
 			float: right;
 		}
+	}
+
+	.middle {
+		font-size: 26rpx;
+		color: #6f6f6f;
 	}
 </style>

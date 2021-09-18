@@ -146,3 +146,19 @@ exports.getReceiveData = async function(event, context) {
 	receive = receive.data[0]
 	return receive || {}
 }
+exports.getReceiveData = async function(event, context) {
+	let receive = await db.collection("taskReceive").where({
+		_id: event.receiveId,
+	}).get({getOne:true});
+	receive = receive.data[0]
+	return receive || {}
+}
+exports.testMsg = async function(event, context) {
+	let pass = await util.testMsg(event.msg, event.userId)
+	return pass
+}
+exports.getIndexNotices = async function(event, context) {
+	let receiveNum = await db.collection("taskReceive").count()
+	let userNum = await db.collection("user").count()
+	return [`小程序已完成助力${receiveNum.total}次，参与人数${userNum.total}人`, '广场任务较少，发布任务会很快被完成，快去吧！', '分享小程序到微信是获取积分最快的方式']
+}

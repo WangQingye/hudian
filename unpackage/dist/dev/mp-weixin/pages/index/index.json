@@ -2,13 +2,15 @@
   "navigationBarTitleText": "互助互点",
   "enablePullDownRefresh": true,
   "usingComponents": {
-    "index-unicloud-db-default": "/pages/index/index-unicloud-db-default",
     "u-dropdown": "/uview-ui/components/u-dropdown/u-dropdown",
     "u-dropdown-item": "/uview-ui/components/u-dropdown-item/u-dropdown-item",
     "u-field": "/uview-ui/components/u-field/u-field",
     "u-button": "/uview-ui/components/u-button/u-button",
+    "u-image": "/uview-ui/components/u-image/u-image",
+    "u-notice-bar": "/uview-ui/components/u-notice-bar/u-notice-bar",
     "unicloud-db": "/node-modules/@dcloudio/uni-cli-shared/components/unicloud-db",
     "u-loadmore": "/uview-ui/components/u-loadmore/u-loadmore",
-    "task-item": "/components/task-item"
+    "task-item": "/components/task-item",
+    "fake-task-item": "/components/fake-task-item"
   }
 }

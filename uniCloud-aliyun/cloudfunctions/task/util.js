@@ -126,3 +126,39 @@ async function addUserScore(userOpenId, score, credit) {
 	});
 }
 exports.addUserScore = addUserScore
+let accessToken = ''
+async function getAccessToken() {
+	const res = await uniCloud.httpclient.request('https://api.weixin.qq.com/cgi-bin/token', {
+		method: 'GET',
+		data: {
+			grant_type: 'client_credential',
+			appid: 'wxa5c8a9951e47b6ba',
+			secret: 'c333a5d1ff4efdc417dc3125b75c9f5d'
+		},
+	})
+	let data = JSON.parse(res.data.toString())
+	accessToken = data.access_token
+}
+async function testMsg(msg, userId) {
+	if (!accessToken) await getAccessToken()
+	console.log(accessToken)
+	const res = await uniCloud.httpclient.request(
+		`https://api.weixin.qq.com/wxa/msg_sec_check?access_token=${accessToken}`, {
+			method: 'POST',
+			data: {
+				"openid": userId,
+				"scene": 3,
+				"version": 2,
+				"content": msg
+			},
+			contentType: 'json', // 指定以application/json发送data内的数据
+			dataType: 'json' // 指定返回值为json格式，自动进行parse
+		})
+	// let data = JSON.parse(res.data.toString())
+	if (res.data.result.suggest == 'pass') {
+		return true
+	} else {
+		return false
+	}
+}
+exports.testMsg = testMsg

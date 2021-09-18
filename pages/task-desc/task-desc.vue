@@ -152,7 +152,7 @@
 		methods: {
 			copy() {
 				uni.setClipboardData({
-					data: '任务链接'
+					data: this.taskData.link || this.taskData.taskDetail.link
 				});
 			},
 			goBack() {
@@ -196,7 +196,7 @@
 					submitImg: this.imageValue[0].url,
 					score: this.taskData.taskDetail.score
 				})
-				this.$util.showToast('提交成功', '', () => {
+				this.$util.showToast('提交成功，稍等片刻即可获得积分！', '', () => {
 					uni.switchTab({
 						url: `/pages/my-info/my-info`
 					})

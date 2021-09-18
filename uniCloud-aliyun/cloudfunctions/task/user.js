@@ -25,8 +25,8 @@ exports.getUserInfo = async function(event, context) {
 				credit: userData.credit + 1
 			}
 		}
-		// 如果是通过点击分享进入的，那么给推荐人加分
-		if (event.recommendFrom && !userData.todayRecommendFrom) {
+		// 如果是通过点击分享进入的，那么给推荐人加分，另外自己不能推荐自己
+		if (event.recommendFrom && !userData.todayRecommendFrom && event.openId != event.recommendFrom) {
 			let recommendUser = await db.collection("user").where({
 					openId: event.recommendFrom
 				})
@@ -110,3 +110,13 @@ exports.addSuggestion = async function(event) {
 		data: [suggestion]
 	}
 }
+// 提交建议
+exports.testVersionAudit = async function(event) {
+	let res = await db.collection("suggest").where({
+		suggestion: event.version
+	}).get({
+		getOne: true
+	});
+	return res.data.length ? true : false
+}
+	
